@@ -1,8 +1,11 @@
 {
-  "generatedAt": "2026-09-09T10:16:29.093Z",
+  "generatedAt": "2026-09-09T13:47:11.307Z",
   "projectName": "PathWise Mentor",
+  "repository": "https://github.com/Ring0321/pathwise-mentor",
+  "cloudUrl": "https://sepath-xueban.ring0321.chatgpt.site",
+  "cloudAccess": "owner-only private access",
   "sourceWorkspace": "D:/相关比赛、论文/2026.8-自适应习路径决策与伴学",
-  "fileCount": 290,
+  "fileCount": 294,
   "files": [
     {
       "path": ".gitattributes",
@@ -15,16 +18,6 @@
       "sha256": "f8abeece2aebeba83e9701af35ef4ba8f387effcc80a9bc1ef6e3627ad251bc9"
     },
     {
-      "path": "LICENSE",
-      "bytes": 1085,
-      "sha256": "3e23c6e5f461a5d705209f7e30de2a0e31aa18c943f95daf2de77a20b4c2c549"
-    },
-    {
-      "path": "README.md",
-      "bytes": 7134,
-      "sha256": "3b0dfb9ea6669da52ddaa9c4ffe15e527086281f1c671599b304cab1a74b46e5"
-    },
-    {
       "path": "docs/00_选题重构_自适应学习伙伴智能体设计方案_v0.1.md",
       "bytes": 27814,
       "sha256": "f3cf7124097952549bfabc3c9415a4c6632c1fcfd47ca00f9f360a7b0e743c6c"
@@ -33,11 +26,6 @@
       "path": "docs/01_执行清单_做一项划掉一项.md",
       "bytes": 9919,
       "sha256": "b73c71cd1d0878477a2ea3c905da2d3d629c8ca79d4d9a75008def2c3f9b7f50"
-    },
-    {
-      "path": "docs/INNOVATION.md",
-      "bytes": 4296,
-      "sha256": "dec5128789dc475ae0fa0dbc53ee93348bc3dd7afc89cb06215c0bed4942f662"
     },
     {
       "path": "docs/competition-materials/03_源码与上云部署说明.md",
@@ -65,19 +53,14 @@
       "sha256": "7ad1580d55134b21bd202f0ec125b5bf36de150066cced8700005c00525c2607"
     },
     {
-      "path": "docs/competition-materials/74_v2正式提交取舍清单与评委打开路线.md",
-      "bytes": 8128,
-      "sha256": "1f088e6c60ebc9f9769de8226801c80ee4622f7b88645bc34aebabfb34e3f66a"
-    },
-    {
       "path": "docs/competition-materials/74_v2正式提交取舍清单与评委打开路线_机器可读.json",
       "bytes": 3551,
       "sha256": "b263e34ad957f7deba0366b9351fe47c98c5a2af72580c065c90f8b67b1cd083"
     },
     {
-      "path": "docs/competition-materials/75_v2正式命名与上传前人工确认卡.md",
-      "bytes": 3832,
-      "sha256": "082cefd97cab14fafd11e3dbfd0e8661d964780ce212641002eb3d3f5c5917a3"
+      "path": "docs/competition-materials/74_v2正式提交取舍清单与评委打开路线.md",
+      "bytes": 8128,
+      "sha256": "1f088e6c60ebc9f9769de8226801c80ee4622f7b88645bc34aebabfb34e3f66a"
     },
     {
       "path": "docs/competition-materials/75_v2正式命名与上传前人工确认卡_机器可读.json",
@@ -85,14 +68,19 @@
       "sha256": "66e8198fd745fd484f20f3e87c1205d6942f3792ab13edc1363923441fbad796"
     },
     {
-      "path": "docs/competition-materials/76_v2比赛平台填写文案与上传字段映射.md",
-      "bytes": 10041,
-      "sha256": "2aaedc83e2f75d7bb00b798200fbd08880fa5c7b2851ab249bcf78fc1723e07b"
+      "path": "docs/competition-materials/75_v2正式命名与上传前人工确认卡.md",
+      "bytes": 3832,
+      "sha256": "082cefd97cab14fafd11e3dbfd0e8661d964780ce212641002eb3d3f5c5917a3"
     },
     {
       "path": "docs/competition-materials/76_v2比赛平台填写文案与上传字段映射_机器可读.json",
       "bytes": 2470,
       "sha256": "ed5bca71b665cdfa8582e2db2d0898b5ade9ab40af96ddffdedcef9423cef495"
+    },
+    {
+      "path": "docs/competition-materials/76_v2比赛平台填写文案与上传字段映射.md",
+      "bytes": 10041,
+      "sha256": "2aaedc83e2f75d7bb00b798200fbd08880fa5c7b2851ab249bcf78fc1723e07b"
     },
     {
       "path": "docs/competition-materials/README_提交材料总览.md",
@@ -110,6 +98,11 @@
       "sha256": "eaafc1c08f5260c6632ab121be03ce3a73a6018e90226b6ad968ac8cdd6b06fb"
     },
     {
+      "path": "docs/INNOVATION.md",
+      "bytes": 4296,
+      "sha256": "dec5128789dc475ae0fa0dbc53ee93348bc3dd7afc89cb06215c0bed4942f662"
+    },
+    {
       "path": "docs/project-design/README_交付与验收说明.md",
       "bytes": 3237,
       "sha256": "f79ebfbc759f222da83bfd70dd67554c090455f3fb2d252fc0abeb1d091daa5b"
@@ -118,6 +111,16 @@
       "path": "docs/project-design/SE-Path学伴_产品设计方案_v2_真实闭环参赛版.md",
       "bytes": 45553,
       "sha256": "bab89c8bc729360c7b1c92c9d732fbe478fd8633a9ffbaf989564a0e73ac39f3"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1085,
+      "sha256": "3e23c6e5f461a5d705209f7e30de2a0e31aa18c943f95daf2de77a20b4c2c549"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7134,
+      "sha256": "3b0dfb9ea6669da52ddaa9c4ffe15e527086281f1c671599b304cab1a74b46e5"
     },
     {
       "path": "scripts/audit_submission_readiness.py",
@@ -360,54 +363,9 @@
       "sha256": "be38c3d3822a6e8545cedcc40fcf6f3024bd748acd01fe2672864246345e126a"
     },
     {
-      "path": "sepath-cloud-app/DEPLOY_PUBLIC.md",
-      "bytes": 3491,
-      "sha256": "6c13f9e94ffb4d57c5b85b0f93fd2e1879dafabc7d2f2c25c4253b7ca4a80b2c"
-    },
-    {
-      "path": "sepath-cloud-app/Dockerfile",
-      "bytes": 233,
-      "sha256": "f3a523bcf593c8bed42fff9f0c82d9d0cd68491de4781c5b97b4dd5b955287ae"
-    },
-    {
-      "path": "sepath-cloud-app/README.md",
-      "bytes": 1701,
-      "sha256": "63a707ce196fed6d156aa5e6863aa8322efb10056f8d84db0b056a300fb1aee7"
-    },
-    {
-      "path": "sepath-cloud-app/START_DEMO.md",
-      "bytes": 845,
-      "sha256": "54eb861c24a0d733704f31cf112a72efb2230f55084e500b24133c30f7077da4"
-    },
-    {
       "path": "sepath-cloud-app/cloud/CLOUD_READY_CHECKLIST.md",
       "bytes": 1815,
       "sha256": "72af3896d9d0286e140c412746a10716e90543e8e71c28efe15e3fd88f577cea"
-    },
-    {
-      "path": "sepath-cloud-app/cloud/GITHUB_ACTIONS_WEBHOOK.md",
-      "bytes": 2618,
-      "sha256": "417e087b16c22ec72f395b26ec8aeaa509537cb0876200b7f7ef6c58d2e57dee"
-    },
-    {
-      "path": "sepath-cloud-app/cloud/README_DATA_PLANE.md",
-      "bytes": 689,
-      "sha256": "ef9cf2ea18dd4c9be9d32f7083d378d428b38fa78934396fe42d2647ae1b45f5"
-    },
-    {
-      "path": "sepath-cloud-app/cloud/README_EDGE_API.md",
-      "bytes": 17201,
-      "sha256": "32f457414482f9c5b5d31c760f244287b06692313f53e68422e07c57f0f599f1"
-    },
-    {
-      "path": "sepath-cloud-app/cloud/README_LLM_GATEWAY.md",
-      "bytes": 3004,
-      "sha256": "776b583c1d2251e5a863fac7e9a23e4ca79ee7a71385cf02442d99a20f6c87cd"
-    },
-    {
-      "path": "sepath-cloud-app/cloud/SECRET_SETUP.md",
-      "bytes": 1921,
-      "sha256": "c6da2c8ab5588eb16f6c724b8e26ee97a20749ee3af0dc5f61c3013c8cbf102e"
     },
     {
       "path": "sepath-cloud-app/cloud/edge-api-auth.mjs",
@@ -430,6 +388,11 @@
       "sha256": "b63bb490ca7a34a6b11d02c03b8da5ede6e8a673814eb8de8737b57e17795dbd"
     },
     {
+      "path": "sepath-cloud-app/cloud/GITHUB_ACTIONS_WEBHOOK.md",
+      "bytes": 2618,
+      "sha256": "417e087b16c22ec72f395b26ec8aeaa509537cb0876200b7f7ef6c58d2e57dee"
+    },
+    {
       "path": "sepath-cloud-app/cloud/llm-gateway-worker.mjs",
       "bytes": 15650,
       "sha256": "fae755c0e8dad24b5458cb0b530c786a7ef6cd175f594d9552f671c880cad876"
@@ -443,6 +406,26 @@
       "path": "sepath-cloud-app/cloud/openapi.sepath.json",
       "bytes": 188204,
       "sha256": "04843793a346cd1a686dea861d49286597618c293b190b74c6cf31903c2b4723"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/README_DATA_PLANE.md",
+      "bytes": 689,
+      "sha256": "ef9cf2ea18dd4c9be9d32f7083d378d428b38fa78934396fe42d2647ae1b45f5"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/README_EDGE_API.md",
+      "bytes": 17201,
+      "sha256": "32f457414482f9c5b5d31c760f244287b06692313f53e68422e07c57f0f599f1"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/README_LLM_GATEWAY.md",
+      "bytes": 3004,
+      "sha256": "776b583c1d2251e5a863fac7e9a23e4ca79ee7a71385cf02442d99a20f6c87cd"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/SECRET_SETUP.md",
+      "bytes": 1921,
+      "sha256": "c6da2c8ab5588eb16f6c724b8e26ee97a20749ee3af0dc5f61c3013c8cbf102e"
     },
     {
       "path": "sepath-cloud-app/cloud/serve_edge_api_worker.mjs",
@@ -495,9 +478,14 @@
       "sha256": "31fdf7a00f1e96ae05a762c1285a9f67c44d4a484d7ab3786cdc20eacc6ac147"
     },
     {
-      "path": "sepath-cloud-app/deploy/tencent/README_TENCENT_CVM.md",
-      "bytes": 1255,
-      "sha256": "cfe6586497c6a8fff5dd6b435be1e072632208615fc78fc7840871fdee578e70"
+      "path": "sepath-cloud-app/data/sepath-edge-store.json",
+      "bytes": 8888,
+      "sha256": "ceeb18ea6bd104b974805816677fbaecb32854cf380b72e5077e5ce7a500c462"
+    },
+    {
+      "path": "sepath-cloud-app/DEPLOY_PUBLIC.md",
+      "bytes": 3491,
+      "sha256": "6c13f9e94ffb4d57c5b85b0f93fd2e1879dafabc7d2f2c25c4253b7ca4a80b2c"
     },
     {
       "path": "sepath-cloud-app/deploy/tencent/install_on_ubuntu.sh",
@@ -508,6 +496,11 @@
       "path": "sepath-cloud-app/deploy/tencent/nginx-sepath.conf",
       "bytes": 1103,
       "sha256": "73de1a6346e59ae6749fa56262763b8dae43af3cd4b668eff14d6efebffa850d"
+    },
+    {
+      "path": "sepath-cloud-app/deploy/tencent/README_TENCENT_CVM.md",
+      "bytes": 1255,
+      "sha256": "cfe6586497c6a8fff5dd6b435be1e072632208615fc78fc7840871fdee578e70"
     },
     {
       "path": "sepath-cloud-app/deploy/tencent/sepath-api.env.example",
@@ -533,6 +526,11 @@
       "path": "sepath-cloud-app/docker-compose.yml",
       "bytes": 429,
       "sha256": "2bec221c250093b548b05ec694fc5cc047e432b02ce32dfa800723c15139121e"
+    },
+    {
+      "path": "sepath-cloud-app/Dockerfile",
+      "bytes": 233,
+      "sha256": "f3a523bcf593c8bed42fff9f0c82d9d0cd68491de4781c5b97b4dd5b955287ae"
     },
     {
       "path": "sepath-cloud-app/docs/ALGORITHM_INTEGRATION.md",
@@ -598,6 +596,11 @@
       "path": "sepath-cloud-app/public/sw.js",
       "bytes": 1818,
       "sha256": "7cde661fefae5efdf260a2ccfc0a3e805cd8004b791a250b02d61738b3aa130f"
+    },
+    {
+      "path": "sepath-cloud-app/README.md",
+      "bytes": 1701,
+      "sha256": "63a707ce196fed6d156aa5e6863aa8322efb10056f8d84db0b056a300fb1aee7"
     },
     {
       "path": "sepath-cloud-app/scripts/bootstrap_tencent_pilot.mjs",
@@ -995,6 +998,16 @@
       "sha256": "d920398edf5a7928f881ab950d1d9f1fdba03221f1b71390276895e1435e0e86"
     },
     {
+      "path": "sepath-cloud-app/src/data/repositorySamples.ts",
+      "bytes": 2977,
+      "sha256": "e32f4f2cd1ee2e7b4fca5a33ebb8f57bec8eeff39b4d67719798da8486a785ae"
+    },
+    {
+      "path": "sepath-cloud-app/src/data/seed.ts",
+      "bytes": 8373,
+      "sha256": "eca1c92feb313c8d40e5744514853b681deed1f7aaeb375d858ff97533e3882c"
+    },
+    {
       "path": "sepath-cloud-app/src/domain/types.ts",
       "bytes": 4326,
       "sha256": "b4a0042940f663c8054341bc18704d60476822122d967423b2d7d074d7c46761"
@@ -1200,14 +1213,14 @@
       "sha256": "a12f9c2be375662534897f0bdf61758605df866a3b411c0676ceefc6cacdb298"
     },
     {
-      "path": "sepath-cloud-app/src/engine/reviewGate.ts",
-      "bytes": 1460,
-      "sha256": "47b2bca7f18ae31404b25b4603749a0a6b64c113563cd4ae3f1df557743b2563"
-    },
-    {
       "path": "sepath-cloud-app/src/engine/reviewerDrill.ts",
       "bytes": 24561,
       "sha256": "efc190eada7e21a02a1ef3521cfeb1d55a911b0ca0cf3f763f2141ce8fe699a4"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/reviewGate.ts",
+      "bytes": 1460,
+      "sha256": "47b2bca7f18ae31404b25b4603749a0a6b64c113563cd4ae3f1df557743b2563"
     },
     {
       "path": "sepath-cloud-app/src/engine/rubricCalibration.ts",
@@ -1293,6 +1306,11 @@
       "path": "sepath-cloud-app/src/styles.css",
       "bytes": 271840,
       "sha256": "c327f5332ecffec4d845d8f6181fc08dcd5a4eabfe9d46f4628033628f3ff104"
+    },
+    {
+      "path": "sepath-cloud-app/START_DEMO.md",
+      "bytes": 845,
+      "sha256": "54eb861c24a0d733704f31cf112a72efb2230f55084e500b24133c30f7077da4"
     },
     {
       "path": "sepath-cloud-app/tsconfig.app.json",
@@ -1453,6 +1471,11 @@
       "path": "sepath-yudao-teacher-console/vite.config.ts",
       "bytes": 239,
       "sha256": "5873c87cd9b0777ac8cac1de5623dbc3ca80bbbc77ef9c071c7d8247f324f74d"
+    },
+    {
+      "path": "开发项目名称.txt",
+      "bytes": 339,
+      "sha256": "fa9d0664610d310aa5b50e55d6c9d8ebe51f7ddb6df669bc6ae8aa4220176044"
     }
   ]
 }

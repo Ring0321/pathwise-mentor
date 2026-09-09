@@ -1,0 +1,5 @@
+﻿开源项目名称：PathWise Mentor
+GitHub 开源项目地址：https://github.com/Ring0321/pathwise-mentor
+云端访问地址（owner-only 私有访问）：https://sepath-xueban.ring0321.chatgpt.site
+
+说明：上面的 GitHub 仓库已公开开源；云端访问地址当前为私有访问，不等同于匿名公开演示地址。
