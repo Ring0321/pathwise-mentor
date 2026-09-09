@@ -1,67 +1,149 @@
-# SE-Path Adaptive Learning Companion
+# PathWise Mentor
 
-SE-Path 学伴是面向软件工程项目制学习的自适应学习路径决策与伴学原型。当前交接仓库保留“可继续开发”的源码、配置、接口/部署说明和必要项目文档，刻意排除了依赖目录、构建产物、日志、真实环境变量、浏览器缓存、旧提交 ZIP 以及路演视频/PPT/DOCX 等大体积材料。
+Evidence-grounded adaptive learning companion for software engineering project-based courses.
 
-## 交接重点
+PathWise Mentor is an open-source teaching workbench for project-based software engineering courses. It helps teachers turn GitHub issues, pull requests, CI failures, learner reflections, rubric evidence, and classroom follow-up records into traceable learning support actions.
 
-- `sepath-yudao-teacher-console/`：当前主线。Vue 3 + Element Plus 教师工作台，覆盖教师待办、证据账本、学生回流、Rubric 配置、课程运营、任务包发布与验收闭环。
-- `sepath-cloud-app/`：云化/公开试用原型。React + Vite，包含前端面板、确定性引擎、Edge API/LLM gateway/数据平面示例、腾讯云部署脚本和 OpenAPI/验证文档。
-- `scripts/`：根目录支撑脚本，供 `sepath-cloud-app` 的若干验证命令继续按原相对路径调用。
-- `docs/`：产品设计、比赛口径、源码与上云说明、真实性边界、平台填写和人工确认模板。
+The project started as `SE-Path 学伴`, a competition prototype for adaptive learning path decision-making and human-in-the-loop learning support. This repository packages the maintainable source code, documentation, deployment examples, and verification notes so another developer can continue building it.
 
-## 本地启动
+## What It Solves
 
-建议使用 Node.js 20.19+ 或 Node.js 22+。
+In project-based software engineering courses, teachers often face three practical problems:
 
-### 教师工作台主线
+- Evidence is scattered across repositories, CI logs, student messages, classroom tasks, and reflection forms.
+- Learning support is either too generic or too heavy to operate repeatedly for a whole class.
+- AI assistance can easily cross the line from support into automatic scoring, answer substitution, or unsupported risk judgment.
+
+PathWise Mentor keeps the system intentionally grounded: AI can propose candidate diagnosis and next-step scaffolds, but teachers remain responsible for review, release, evaluation, and intervention decisions.
+
+## Core Idea
+
+The system builds an adaptive learning support loop:
+
+1. Evidence intake: import PR/CI failures, help requests, rubric evidence, and student reflections.
+2. Evidence ledger: record each event with source, actor, timestamp, trace id, and claim boundary.
+3. Candidate diagnosis: identify learning blockers, missing evidence, risk signals, and rubric gaps.
+4. Safe intervention planning: generate checklists, scaffolds, micro-tasks, and review prompts rather than full answers.
+5. Teacher confirmation: require human review before publishing actions or accepting evidence.
+6. Student return flow: collect fixes, reflections, and evidence supplements.
+7. Value-added snapshot: update formative progress signals for the learner and cohort.
+
+## Innovation Highlights
+
+- Evidence-first learning support: every diagnosis and action is tied back to observable learning evidence instead of vague learner labels.
+- Human-confirmed AI workflow: AI provides candidate suggestions, while teachers confirm publication, evaluation, and risk decisions.
+- Safe-VOI intervention logic: the system prefers the smallest useful next step, such as a scaffold, test checklist, or evidence request, instead of giving students final answers.
+- Formative value-added diagnosis: progress is treated as growth evidence for teaching improvement, not as ranking, punishment, or employment prediction.
+- Course-level operations view: teachers can handle one learner, one work order, or a whole cohort from the same workbench.
+- Traceable evidence ledger: important actions can be exported and audited, making the workflow suitable for teaching review, competition defense, and future research validation.
+- Dual-track architecture: the Vue teacher console focuses on the daily teaching workflow, while the React cloud prototype explores deployment, Edge API, data-plane, and LLM gateway integration.
+
+More detail is in [docs/INNOVATION.md](docs/INNOVATION.md).
+
+## Repository Structure
+
+```text
+.
+├── sepath-yudao-teacher-console/   # Main Vue 3 + Element Plus teacher workbench
+├── sepath-cloud-app/               # React/Vite cloud and public-trial prototype
+├── scripts/                        # Root support scripts used by docs and validation flows
+├── docs/                           # Product design, competition materials, and handoff notes
+├── HANDOFF_MANIFEST_SHA256.json    # File-level handoff manifest
+├── LICENSE                         # MIT License
+└── README.md
+```
+
+## Main App: Teacher Console
+
+`sepath-yudao-teacher-console/` is the recommended starting point for continued product development.
+
+It includes:
+
+- Teacher work-order inbox
+- Evidence ledger drawer
+- Student return and evidence review flow
+- Rubric and competency configuration
+- Course operation dashboard
+- Micro-task publishing and follow-up loop
+- Local mock data and API-flow scripts
+
+Run it locally:
 
 ```bash
 cd sepath-yudao-teacher-console
 npm ci
 npm run dev
-npm run build
 ```
 
-常用验证：
+Validate it:
 
 ```bash
 npm run typecheck
+npm run build
+```
+
+Optional browser-flow scripts:
+
+```bash
 npm run test:flow
 npm run test:api-flow
 ```
 
-### 云化原型
+## Cloud Prototype
+
+`sepath-cloud-app/` is a broader React/Vite prototype for online trial, deployment, API, and evidence infrastructure.
+
+It includes:
+
+- Frontend panels for pilot readiness, public URL receipt, launch loop, model governance, privacy guard, and evidence tracing
+- Deterministic TypeScript engines under `src/engine/`
+- Edge API and data-plane examples under `cloud/`
+- SQL schema examples and OpenAPI contract
+- Tencent CVM deployment examples under `deploy/tencent/`
+- Smoke tests and screenshot utilities under `scripts/`
+
+Run it locally:
 
 ```bash
 cd sepath-cloud-app
 npm ci
 npm run dev
+```
+
+Validate it:
+
+```bash
 npm test
 npm run build
 ```
 
-云端/接口相关命令见 `sepath-cloud-app/README.md`、`sepath-cloud-app/docs/` 和 `sepath-cloud-app/cloud/`。
+## Current Verification Status
 
-## 继续开发边界
+Verified during the handoff and open-source preparation on 2026-09-09:
 
-- AI 只产出候选诊断、候选建议、脚手架和检查清单；发布、评价、风险判断、教学干预等结果必须由教师确认。
-- 增值评价只用于形成性诊断和改进依据，不做学生排名、惩罚、就业预测或高风险自动决策。
-- 真实学校/班级/学生数据接入前，保持 mock/示例数据口径，并补齐授权、脱敏、审计和回滚机制。
-- 真实环境变量不要提交到仓库；按 `.env.example`、`.env.cloud.example`、`deploy/**/*.env.example` 或 `cloud/wrangler.sepath.example.toml` 另行配置。
+- `sepath-yudao-teacher-console`: `npm ci` passed; `npm run build` passed. Vite reported a large chunk warning, but the build completed.
+- `sepath-cloud-app`: `npm ci` passed; `npm test` passed 28 tests; `npm run build` passed. Vite reported a large chunk warning, but the build completed.
+- `sepath-yudao-teacher-console` currently has a known browser-flow mismatch: `npm run test:api-flow` fails at `Course settings drawer must expose the active storage mode.` The original source directory fails at the same assertion, so this is a pre-existing test/UI alignment issue rather than a handoff packaging issue.
 
-## 当前验证状态
+## Development Boundaries
 
-- `sepath-yudao-teacher-console`: `npm ci` 通过，`npm run build` 通过；构建有 chunk 体积提示，不影响产物生成。
-- `sepath-cloud-app`: `npm ci` 通过，`npm test` 通过 28 个用例，`npm run build` 通过；构建有 chunk 体积提示，不影响产物生成。
-- `sepath-yudao-teacher-console` 的 `npm run test:api-flow` 当前失败在既有断言 `Course settings drawer must expose the active storage mode.`；原始工作目录同样失败，说明这是现有端到端脚本与当前界面状态的待修复项，不是本交接包漏文件。
+PathWise Mentor is designed for formative learning support. Please keep these boundaries intact when extending the project:
 
-## 未纳入本仓库的内容
+- Do not let AI publish learning actions without teacher confirmation.
+- Do not use value-added diagnosis for student ranking, punishment, employment prediction, or other high-stakes automatic decisions.
+- Do not claim real school production data unless the deployment, authorization, and data provenance are actually verified.
+- Do not commit real secrets. Use `.env.example`, `.env.cloud.example`, `deploy/**/*.env.example`, and `cloud/wrangler.sepath.example.toml` as configuration templates.
+- Preserve evidence source, actor, timestamp, trace id, and review status when adding new workflows.
 
-- `node_modules/`、`dist/`、`logs/`、`*.log`、浏览器 QA profile、截图和下载缓存。
-- 旧版 `sepath-learning-companion-v2/` React 小原型；它是早期阶段样例，不再作为当前主线。
-- `sepath-sites-app/` Sites 项目；该目录有独立远端和未提交状态，未混入本次源码交接。
-- 旧 ZIP、视频、PPT、DOCX 等参赛交付大文件；需要时请从原工作目录或正式材料包另取。
+## Good First Tasks
 
-## 交接生成时间
+- Fix the known `test:api-flow` assertion by aligning the course settings drawer and current storage-mode UI.
+- Split large frontend chunks with route-level or panel-level dynamic imports.
+- Consolidate duplicated concepts between the Vue teacher console and React cloud prototype.
+- Add a lightweight backend adapter for real GitHub webhook events.
+- Replace mock learners with a privacy-preserving demo data loader.
+- Add CI for both subprojects.
 
-本源码交接包于 2026-09-09 从本地工作目录整理生成，原始工作目录未被覆盖。
+## License
+
+MIT License. See [LICENSE](LICENSE).

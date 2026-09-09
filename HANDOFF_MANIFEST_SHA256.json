@@ -1,12 +1,13 @@
 {
-  "generatedAt": "2026-09-09T09:28:12.864Z",
+  "generatedAt": "2026-09-09T10:16:29.093Z",
+  "projectName": "PathWise Mentor",
   "sourceWorkspace": "D:/相关比赛、论文/2026.8-自适应习路径决策与伴学",
-  "fileCount": 288,
+  "fileCount": 290,
   "files": [
     {
       "path": ".gitattributes",
-      "bytes": 191,
-      "sha256": "e7802a52b312cdc16f5f2ca47880e01a1493b298bc1ca0ed0d83ef9210e88c93"
+      "bytes": 238,
+      "sha256": "c90f321f7f7d0f4b7f4a942ba9a36da6e5c61c9e66c0383a99c7a4b12687a9ab"
     },
     {
       "path": ".gitignore",
@@ -14,9 +15,14 @@
       "sha256": "f8abeece2aebeba83e9701af35ef4ba8f387effcc80a9bc1ef6e3627ad251bc9"
     },
     {
+      "path": "LICENSE",
+      "bytes": 1085,
+      "sha256": "3e23c6e5f461a5d705209f7e30de2a0e31aa18c943f95daf2de77a20b4c2c549"
+    },
+    {
       "path": "README.md",
-      "bytes": 3336,
-      "sha256": "50d37355bc77056dfe2950b7d6305d5217f17151fadf04209456be2721334c93"
+      "bytes": 7134,
+      "sha256": "3b0dfb9ea6669da52ddaa9c4ffe15e527086281f1c671599b304cab1a74b46e5"
     },
     {
       "path": "docs/00_选题重构_自适应学习伙伴智能体设计方案_v0.1.md",
@@ -27,6 +33,11 @@
       "path": "docs/01_执行清单_做一项划掉一项.md",
       "bytes": 9919,
       "sha256": "b73c71cd1d0878477a2ea3c905da2d3d629c8ca79d4d9a75008def2c3f9b7f50"
+    },
+    {
+      "path": "docs/INNOVATION.md",
+      "bytes": 4296,
+      "sha256": "dec5128789dc475ae0fa0dbc53ee93348bc3dd7afc89cb06215c0bed4942f662"
     },
     {
       "path": "docs/competition-materials/03_源码与上云部署说明.md",
