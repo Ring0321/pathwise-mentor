@@ -1,0 +1,13 @@
+node_modules
+dist
+.vite
+.vinext
+.wrangler
+.git
+coverage
+qa
+*.log
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local

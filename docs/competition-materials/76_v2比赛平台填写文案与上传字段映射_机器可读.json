@@ -1,0 +1,61 @@
+{
+  "runtime": "sepath-v2-platform-form-copy.v1",
+  "generated_at": "2026-08-24",
+  "recommended_material": "参赛提交材料包/76_v2比赛平台填写文案与上传字段映射.md",
+  "work_name": "SE-Path 学伴：软件工程项目式学习增值闭环智能体",
+  "direction": "AI 应用赛 / 自适应学习伙伴智能体 / 软件工程教育",
+  "keywords": [
+    "自适应学习伙伴",
+    "软件工程教育",
+    "增值性教育评价",
+    "EvidenceEvent",
+    "Safe-VOI",
+    "教师复核",
+    "证据账本",
+    "芋道工作台"
+  ],
+  "platform_copy": {
+    "one_sentence": "SE-Path 学伴把软件工程课程中的 PR、CI、Review、学生对话、教师复核和反思转化为证据账本，用增值评价与 Safe-VOI 选择安全下一步，最终由教师确认发布，形成可诊断、可干预、可复核的学习闭环。",
+    "within_100_chars": "SE-Path 学伴面向软件工程项目式学习，将 PR、CI、Review 证据转为增值诊断和 Safe-VOI 脚手架建议。AI 不直接给答案，教师确认后发布，学生补证据与反思写入账本。",
+    "boundary": "当前 v2 Demo 使用本地 mock API 和本地状态证明产品闭环，不宣称已接入真实学校生产数据。增值评价只做形成性诊断和学习支持，不做排名、不做惩罚、不做就业预测。AI 只生成候选建议，最终发布、评价和高风险判断均由教师确认。"
+  },
+  "upload_mapping": [
+    {
+      "field": "项目计划书",
+      "file": "01_队伍名待填写+SE-Path学伴_项目计划书.docx"
+    },
+    {
+      "field": "答辩 PPT",
+      "file": "02_队伍名待填写+SE-Path学伴_答辩PPT.pptx"
+    },
+    {
+      "field": "演示视频",
+      "file": "03_队伍名待填写+SE-Path学伴_演示视频.mp4"
+    },
+    {
+      "field": "源代码 / Demo",
+      "file": "04_队伍名待填写+SE-Path学伴_Demo源码/"
+    },
+    {
+      "field": "创新与答辩补充",
+      "file": "05_队伍名待填写+SE-Path学伴_创新与答辩备查.md"
+    },
+    {
+      "field": "证据账本样例",
+      "file": "06_队伍名待填写+SE-Path学伴_证据账本样例.json"
+    }
+  ],
+  "human_placeholders": [
+    "最终报名队伍名",
+    "姓名、学校、专业、角色、联系方式",
+    "公网 URL",
+    "上传形式",
+    "视频版本最终确认"
+  ],
+  "qa": {
+    "status": "PASS",
+    "sections": 14,
+    "upload_mapping_count": 6,
+    "v2_aligned": true
+  }
+}

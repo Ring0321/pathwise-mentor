@@ -1,0 +1,20 @@
+[Unit]
+Description=SE-Path Edge API
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/sepath/api
+EnvironmentFile=/etc/sepath/sepath-api.env
+ExecStart=/usr/bin/node /opt/sepath/api/cloud/serve_edge_api_worker.mjs --port 8787
+Restart=always
+RestartSec=3
+User=www-data
+Group=www-data
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/var/lib/sepath /opt/sepath/api /etc/sepath
+
+[Install]
+WantedBy=multi-user.target

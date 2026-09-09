@@ -1,0 +1,52 @@
+{
+  "name": "sepath-cloud-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "preview:local": "node ./scripts/start_preview_detached.mjs --port=5190",
+    "test": "vitest run",
+    "cloud:smoke": "node ./scripts/smoke_edge_api_worker.mjs",
+    "cloud:smoke:db": "node ./scripts/smoke_edge_api_database_store.mjs",
+    "cloud:serve": "node ./cloud/serve_edge_api_worker.mjs",
+    "cloud:smoke:http": "node ./scripts/smoke_edge_api_http.mjs",
+    "cloud:smoke:llm": "node ./scripts/smoke_llm_gateway_worker.mjs",
+    "cloud:test:agent": "node --test ./scripts/test_teaching_agent.mjs",
+    "cloud:serve:llm": "node ./cloud/serve_llm_gateway_worker.mjs",
+    "cloud:smoke:llm:http": "node ./scripts/smoke_llm_gateway_http.mjs",
+    "cloud:secrets:setup": "powershell -ExecutionPolicy Bypass -File ./scripts/set_cloudflare_secrets.ps1",
+    "cloud:release:tencent": "powershell -ExecutionPolicy Bypass -File ./scripts/build_tencent_server_release.ps1",
+    "cloud:bootstrap:tencent": "node ./scripts/bootstrap_tencent_pilot.mjs",
+    "cloud:openapi:validate": "python ../scripts/validate_openapi_contract.py",
+    "cloud:pwa:validate": "python ../scripts/validate_public_trial_pwa.py",
+    "cloud:slo": "node ./scripts/run_cloud_slo_load_test.mjs",
+    "qa:screenshot:desktop": "node ./scripts/capture_with_dev_server.mjs --preview --vitePort 53210 --port 49340 --width 1440 --height 1024 --out qa/screenshots/desktop-viewport.png --url http://127.0.0.1:53210/?qa=desktop",
+    "qa:screenshot:mobile": "node ./scripts/capture_with_dev_server.mjs --preview --vitePort 53211 --port 49341 --width 390 --height 900 --out qa/screenshots/mobile-viewport.png --url http://127.0.0.1:53211/?qa=mobile",
+    "qa:screenshot:course-launch": "node ./scripts/capture_with_dev_server.mjs --courseLaunch",
+    "qa:screenshot:cloud-handoff": "node ./scripts/capture_with_dev_server.mjs --preview --vitePort 53224 --port 49354 --width 1440 --height 1100 --out qa/screenshots/cloud-handoff-panel.png --url http://127.0.0.1:53224/?qa=cloud-handoff --scrollTo '#cloud'",
+    "qa:screenshot:cloud-handoff-mobile": "node ./scripts/capture_with_dev_server.mjs --preview --vitePort 53225 --port 49355 --width 390 --height 1100 --out qa/screenshots/cloud-handoff-panel-mobile.png --url http://127.0.0.1:53225/?qa=cloud-handoff-mobile --scrollTo '#cloud'",
+    "qa:screenshot:cloud-slo": "node ./scripts/capture_with_dev_server.mjs --preview --vitePort 53228 --port 49358 --width 1440 --height 1100 --out qa/screenshots/cloud-slo-panel.png --url http://127.0.0.1:53228/?qa=cloud-slo --scrollTo '#cloud-slo' --scrollOffset 154",
+    "qa:screenshot:backend-status": "node ./scripts/capture_with_dev_server.mjs --preview --vitePort 53231 --port 49361 --width 1440 --height 1100 --out qa/screenshots/backend-status-panel.png --url http://127.0.0.1:53231/?qa=backend-status --scrollTo '#backend-status' --scrollOffset 154",
+    "qa:screenshot:launch-loop": "node ./scripts/capture_with_dev_server.mjs --preview --vitePort 53234 --port 49364 --width 1440 --height 1100 --out qa/screenshots/launch-loop-panel.png --url http://127.0.0.1:53234/?qa=launch-loop --scrollTo '#launch-loop' --scrollOffset 154",
+    "qa:screenshot:launch-loop-mobile": "node ./scripts/capture_with_dev_server.mjs --preview --vitePort 53235 --port 49365 --width 390 --height 1100 --out qa/screenshots/launch-loop-panel-mobile.png --url http://127.0.0.1:53235/?qa=launch-loop-mobile --scrollTo '#launch-loop' --scrollOffset 154",
+    "qa:screenshot:public-url-receipt": "node ./scripts/capture_with_dev_server.mjs --preview --vitePort 53237 --port 49367 --width 1440 --height 1100 --out qa/screenshots/public-url-receipt-panel.png --url http://127.0.0.1:53237/?qa=public-url-receipt --scrollTo '#public-url-receipt' --scrollOffset 154",
+    "qa:screenshot:public-url-receipt-mobile": "node ./scripts/capture_with_dev_server.mjs --preview --vitePort 53238 --port 49368 --width 390 --height 1100 --out qa/screenshots/public-url-receipt-panel-mobile.png --url http://127.0.0.1:53238/?qa=public-url-receipt-mobile --scrollTo '#public-url-receipt' --scrollOffset 154",
+    "qa:screenshots": "npm run qa:screenshot:desktop && npm run qa:screenshot:mobile && npm run qa:screenshot:cloud-handoff && npm run qa:screenshot:cloud-handoff-mobile && npm run qa:screenshot:cloud-slo && npm run qa:screenshot:backend-status && npm run qa:screenshot:launch-loop && npm run qa:screenshot:launch-loop-mobile && npm run qa:screenshot:public-url-receipt && npm run qa:screenshot:public-url-receipt-mobile"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.0.0",
+    "lucide-react": "^0.475.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "vite": "^6.0.11"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.7.3",
+    "vitest": "^5.0.0"
+  }
+}

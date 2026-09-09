@@ -1,0 +1,52 @@
+name: SE-Path CI Evidence
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test-and-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+      - run: npm test
+
+      - name: Send SE-Path evidence when CI fails
+        if: failure()
+        env:
+          SEPATH_WEBHOOK_URL: ${{ vars.SEPATH_WEBHOOK_URL }}
+          SEPATH_WEBHOOK_SECRET: ${{ secrets.SEPATH_WEBHOOK_SECRET }}
+          SEPATH_LEARNER_HASH: ${{ vars.SEPATH_LEARNER_HASH || format('stu_hash_{0}', github.actor) }}
+        run: |
+          payload_file="$(mktemp)"
+          cat > "$payload_file" <<JSON
+          {
+            "tenantId": "tenant-se-course-2026",
+            "courseId": "software-engineering-project",
+            "learnerHash": "$SEPATH_LEARNER_HASH",
+            "learnerAlias": "SE learner",
+            "deliveryId": "${{ github.run_id }}-${{ github.run_attempt }}",
+            "repository": "${{ github.repository }}",
+            "branch": "${{ github.head_ref || github.ref_name }}",
+            "prUrl": "${{ github.event.pull_request.html_url }}",
+            "ciRunUrl": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+            "ciProvider": "GitHub Actions",
+            "ciLogSummary": "CI failed. Please inspect failed job summary and add boundary or regression evidence.",
+            "courseClass": "软件工程 2301",
+            "courseName": "REST API 错误处理与边界测试",
+            "owner": "任课教师"
+          }
+          JSON
+          signature="$(openssl dgst -sha256 -hmac "$SEPATH_WEBHOOK_SECRET" "$payload_file" | awk '{print $2}')"
+          curl -sS -X POST "$SEPATH_WEBHOOK_URL" \
+            -H "content-type: application/json" \
+            -H "x-github-event: pull_request" \
+            -H "x-github-delivery: ${{ github.run_id }}-${{ github.run_attempt }}" \
+            -H "x-hub-signature-256: sha256=$signature" \
+            --data-binary "@$payload_file"

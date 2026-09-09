@@ -1,0 +1,38 @@
+{
+  "runtime": "sepath-v2-final-naming-human-confirmation.v1",
+  "generated_at": "2026-08-24",
+  "profile_template": "../submission/v2_final_submission_profile.template.json",
+  "prepare_script": "../scripts/prepare_v2_final_named_submission.py",
+  "pending_package_dir": "../submission/v2_final_submission_pending_name/",
+  "pending_package_zip": "../submission/SE-Path学伴_v2正式提交包_待队伍名替换_2026-08-24.zip",
+  "required_human_inputs": [
+    "队伍名",
+    "作品正式名",
+    "队员姓名",
+    "学校、专业、角色",
+    "平台联系方式",
+    "上传形式",
+    "公网 URL 是否需要",
+    "视频版本确认"
+  ],
+  "blocking_rules": [
+    "队伍名仍包含待填写时阻断",
+    "队员姓名、学校、专业、角色未填写时阻断",
+    "关键确认项未全部为 true 时阻断",
+    "需要公网 URL 但 URL 为空时阻断",
+    "真实课程效果未经验证时不得写成已证明"
+  ],
+  "boundary": [
+    "本地 mock API 和本地状态证明闭环，不宣称已接真实学校生产数据",
+    "增值评价只做形成性诊断和学习支持，不做排名、不做惩罚、不做就业预测",
+    "AI 只生成候选建议，教师确认后发布",
+    "证据不足时显示不确定或待补证"
+  ],
+  "qa": {
+    "status": "PASS",
+    "template_created": true,
+    "script_created": true,
+    "template_block_check": "BLOCKED_BY_HUMAN_INPUT as expected",
+    "script_py_compile": "PASS"
+  }
+}

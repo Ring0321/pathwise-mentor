@@ -1,0 +1,27 @@
+{
+  "name": "SE-Path Xueban Public Trial",
+  "short_name": "SE-Path",
+  "description": "Installable public trial shell for the SE-Path software engineering adaptive learning companion.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "orientation": "any",
+  "lang": "zh-CN",
+  "categories": ["education", "productivity", "developer"],
+  "icons": [
+    {
+      "src": "/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/maskable-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

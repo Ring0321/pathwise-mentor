@@ -1,0 +1,37 @@
+{
+  "schema": "sepath-v2-final-submission-profile.v1",
+  "team": {
+    "name": "队伍名待填写",
+    "members": [
+      {
+        "name": "姓名待填写",
+        "school": "学校待填写",
+        "major": "专业待填写",
+        "role": "负责人",
+        "contact_for_platform": "平台联系方式待填写"
+      }
+    ]
+  },
+  "work": {
+    "name": "SE-Path学伴",
+    "subtitle": "软件工程自适应学习伙伴智能体",
+    "platform_category": "AI应用赛/自适应学习伙伴智能体"
+  },
+  "submission": {
+    "upload_mode": "zip_or_multi_file_pending",
+    "need_public_url": false,
+    "final_public_url": "",
+    "video_version": "v0.3_4m40s",
+    "source_package_policy": "v2_pending_package_rename",
+    "real_course_claim_policy": "synthetic_replay_only_until_pilot"
+  },
+  "confirmations": {
+    "team_name_confirmed": false,
+    "work_name_confirmed": false,
+    "members_confirmed": false,
+    "platform_upload_mode_confirmed": false,
+    "video_version_confirmed": false,
+    "no_unverified_real_course_claims": false,
+    "privacy_boundary_confirmed": false
+  }
+}

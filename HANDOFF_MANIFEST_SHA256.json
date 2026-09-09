@@ -1,0 +1,1447 @@
+{
+  "generatedAt": "2026-09-09T09:28:12.864Z",
+  "sourceWorkspace": "D:/相关比赛、论文/2026.8-自适应习路径决策与伴学",
+  "fileCount": 288,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 191,
+      "sha256": "e7802a52b312cdc16f5f2ca47880e01a1493b298bc1ca0ed0d83ef9210e88c93"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 487,
+      "sha256": "f8abeece2aebeba83e9701af35ef4ba8f387effcc80a9bc1ef6e3627ad251bc9"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3336,
+      "sha256": "50d37355bc77056dfe2950b7d6305d5217f17151fadf04209456be2721334c93"
+    },
+    {
+      "path": "docs/00_选题重构_自适应学习伙伴智能体设计方案_v0.1.md",
+      "bytes": 27814,
+      "sha256": "f3cf7124097952549bfabc3c9415a4c6632c1fcfd47ca00f9f360a7b0e743c6c"
+    },
+    {
+      "path": "docs/01_执行清单_做一项划掉一项.md",
+      "bytes": 9919,
+      "sha256": "b73c71cd1d0878477a2ea3c905da2d3d629c8ca79d4d9a75008def2c3f9b7f50"
+    },
+    {
+      "path": "docs/competition-materials/03_源码与上云部署说明.md",
+      "bytes": 8354,
+      "sha256": "d8175792877430b01f9b901d704683cece53b66a6e3c77424d88d0780575a806"
+    },
+    {
+      "path": "docs/competition-materials/05_真实性与边界声明.md",
+      "bytes": 1958,
+      "sha256": "569cd051ef657d4acaf55d02eb0cf5ddf01be4e677835e2a4799724b5d21b2bd"
+    },
+    {
+      "path": "docs/competition-materials/14_真实仓库接入与数据治理方案.md",
+      "bytes": 4819,
+      "sha256": "ce6041f88ece7b67d45878fb83ef0a7dcddb6f5dc0612fa0bbd53666a58c3779"
+    },
+    {
+      "path": "docs/competition-materials/44_EdgeAPI运行时与后端接口验收说明.md",
+      "bytes": 8788,
+      "sha256": "179a6ea1edc9097c109cad41c4f49cb109f2cd10aa0d305b8a907622df28f143"
+    },
+    {
+      "path": "docs/competition-materials/73_v2真实闭环_创新商业化开源对比与评审答辩材料.md",
+      "bytes": 14530,
+      "sha256": "7ad1580d55134b21bd202f0ec125b5bf36de150066cced8700005c00525c2607"
+    },
+    {
+      "path": "docs/competition-materials/74_v2正式提交取舍清单与评委打开路线.md",
+      "bytes": 8128,
+      "sha256": "1f088e6c60ebc9f9769de8226801c80ee4622f7b88645bc34aebabfb34e3f66a"
+    },
+    {
+      "path": "docs/competition-materials/74_v2正式提交取舍清单与评委打开路线_机器可读.json",
+      "bytes": 3551,
+      "sha256": "b263e34ad957f7deba0366b9351fe47c98c5a2af72580c065c90f8b67b1cd083"
+    },
+    {
+      "path": "docs/competition-materials/75_v2正式命名与上传前人工确认卡.md",
+      "bytes": 3832,
+      "sha256": "082cefd97cab14fafd11e3dbfd0e8661d964780ce212641002eb3d3f5c5917a3"
+    },
+    {
+      "path": "docs/competition-materials/75_v2正式命名与上传前人工确认卡_机器可读.json",
+      "bytes": 1474,
+      "sha256": "66e8198fd745fd484f20f3e87c1205d6942f3792ab13edc1363923441fbad796"
+    },
+    {
+      "path": "docs/competition-materials/76_v2比赛平台填写文案与上传字段映射.md",
+      "bytes": 10041,
+      "sha256": "2aaedc83e2f75d7bb00b798200fbd08880fa5c7b2851ab249bcf78fc1723e07b"
+    },
+    {
+      "path": "docs/competition-materials/76_v2比赛平台填写文案与上传字段映射_机器可读.json",
+      "bytes": 2470,
+      "sha256": "ed5bca71b665cdfa8582e2db2d0898b5ade9ab40af96ddffdedcef9423cef495"
+    },
+    {
+      "path": "docs/competition-materials/README_提交材料总览.md",
+      "bytes": 25176,
+      "sha256": "90c69a14bf57a75023019e2f27f88f7c712b89771d67d3e40ab59e03798a9ffb"
+    },
+    {
+      "path": "docs/competition-materials/START_DEMO.md",
+      "bytes": 27044,
+      "sha256": "1c117eb42c97ea4bc12491cca646beab38b04d8962b3ad06c4938d1449484496"
+    },
+    {
+      "path": "docs/competition-materials/v2_final_submission_profile.template.json",
+      "bytes": 1109,
+      "sha256": "eaafc1c08f5260c6632ab121be03ce3a73a6018e90226b6ad968ac8cdd6b06fb"
+    },
+    {
+      "path": "docs/project-design/README_交付与验收说明.md",
+      "bytes": 3237,
+      "sha256": "f79ebfbc759f222da83bfd70dd67554c090455f3fb2d252fc0abeb1d091daa5b"
+    },
+    {
+      "path": "docs/project-design/SE-Path学伴_产品设计方案_v2_真实闭环参赛版.md",
+      "bytes": 45553,
+      "sha256": "bab89c8bc729360c7b1c92c9d732fbe478fd8633a9ffbaf989564a0e73ac39f3"
+    },
+    {
+      "path": "scripts/audit_submission_readiness.py",
+      "bytes": 170810,
+      "sha256": "a1321ee6006930d4f0321756de9e8095ebfd96b351ba23b7eb572c24d8fa5077"
+    },
+    {
+      "path": "scripts/build_demo_narration_assets.py",
+      "bytes": 9331,
+      "sha256": "a6c9aba31e509fa1f171f5e9367f877743a33a144e2ff4f47151daca32740aec"
+    },
+    {
+      "path": "scripts/build_demo_video.py",
+      "bytes": 11662,
+      "sha256": "3ddd279b3cb592e2fd471ca2093ce51a3d6dc1563d64bc9b845e05eb59e0486f"
+    },
+    {
+      "path": "scripts/build_final_submission_profile.py",
+      "bytes": 7911,
+      "sha256": "832c5a8cebb24dc904c6ba088d17f13335179c8289586d7e1dcdaefffb94c719"
+    },
+    {
+      "path": "scripts/build_public_site_upload_artifact.py",
+      "bytes": 15021,
+      "sha256": "833b92234d2a9c13ce11f718a340aeb286e062fe05d2e7c01e181e884b7f708c"
+    },
+    {
+      "path": "scripts/build_public_trial_bundle.py",
+      "bytes": 14305,
+      "sha256": "1441e46d31529172502669717f0f2548e6d9985a95a6a200e458033dc963a0e7"
+    },
+    {
+      "path": "scripts/build_sepath_product_design_report.py",
+      "bytes": 88504,
+      "sha256": "25cd7513d54161f707be3c34898912278ddf2778d5ec3773959afff4d7f3949f"
+    },
+    {
+      "path": "scripts/build_v2_design_docx.py",
+      "bytes": 6281,
+      "sha256": "1dc6ff2275b37043251ff2d8df5104f2d22bbfc301901faf2d9de4ea2a201259"
+    },
+    {
+      "path": "scripts/build_v2_pending_submission_package.py",
+      "bytes": 2762,
+      "sha256": "0f29e33bd4f9e233e9831e1317384667a9e4a05f74addd1f84b61d14f8441503"
+    },
+    {
+      "path": "scripts/export_sepath_docx_to_pdf.ps1",
+      "bytes": 2606,
+      "sha256": "4036bc8ab50f130d71af0153f195628f8ba1b1624f3ddbcc9fff1d2d5cf8abd7"
+    },
+    {
+      "path": "scripts/finalize_public_url_receipt.py",
+      "bytes": 8900,
+      "sha256": "e9cf6833cc7ecf0c3870d050783533713e00c3a03483ddb28dfd82acbf9a6b3e"
+    },
+    {
+      "path": "scripts/finalize_submission_after_public_url.py",
+      "bytes": 21176,
+      "sha256": "c19386782ff2d3561414de0b24346a619ff7051732bc25075e5b8abbffa148e5"
+    },
+    {
+      "path": "scripts/generate_award_completion_audit.py",
+      "bytes": 20488,
+      "sha256": "5cfa03c1effbd0f109c576c88f9190498dee5d6ed0dc21d20cdac488e60eec2a"
+    },
+    {
+      "path": "scripts/generate_award_differentiation_pack.py",
+      "bytes": 22361,
+      "sha256": "e748cd97a321361c9b88a630abc2b0892c7de54e82c1ab05f5fd4eb38bb5d9a2"
+    },
+    {
+      "path": "scripts/generate_claim_evidence_ledger_pack.py",
+      "bytes": 25334,
+      "sha256": "cf48f6de9feeef9dadb24d5997fc3ce828721c54e57cd1791ded82c731d43242"
+    },
+    {
+      "path": "scripts/generate_competition_requirement_alignment_pack.py",
+      "bytes": 25918,
+      "sha256": "e2085f59353b449feaf9000208f774054c74ce3dc3004ba8623328aea8732c4e"
+    },
+    {
+      "path": "scripts/generate_final_submission_decision_card.py",
+      "bytes": 12778,
+      "sha256": "ad0761e6ce75008826c7a2312e8be81ac07de986ac8c2f919dcf74fdbe69d296"
+    },
+    {
+      "path": "scripts/generate_final_submission_workspace.py",
+      "bytes": 19141,
+      "sha256": "77cc65b3353d3699bed7676a7efff3b5a63b00d0b0102af065446fca879ed90b"
+    },
+    {
+      "path": "scripts/generate_hosting_upload_selftest_pack.py",
+      "bytes": 16597,
+      "sha256": "b0e09455db97b5d6ccb3734420371b4fd2651621a1a6e416c89a2d5ea20e066d"
+    },
+    {
+      "path": "scripts/generate_judge_demo_seed_pack.py",
+      "bytes": 14343,
+      "sha256": "22977d7c99c5e3c2f31ef80f0e5c86bb8e302e07322297c539c4a9471cac215c"
+    },
+    {
+      "path": "scripts/generate_judge_launchpad.py",
+      "bytes": 23333,
+      "sha256": "0fb1e4e6a1d5e33c30af28eb086f20d7cc30c152eda73bbf5add2f3e0b89b478"
+    },
+    {
+      "path": "scripts/generate_judge_route_orchestrator.py",
+      "bytes": 17475,
+      "sha256": "92311edf20940e4177e575d23c516384b46b2dbfae9a56a296dfbd38db1df473"
+    },
+    {
+      "path": "scripts/generate_judge_verification_pack.py",
+      "bytes": 28529,
+      "sha256": "a1fc9963bd959813452733219866934ccca363202c9723af2879140b413c7fa5"
+    },
+    {
+      "path": "scripts/generate_launch_loop_acceptance.py",
+      "bytes": 26878,
+      "sha256": "7f8e2cae993c659c25ee444a80f54e9f6e6cdc4c0b70b875803c83c3bb422b85"
+    },
+    {
+      "path": "scripts/generate_local_run_doctor_pack.py",
+      "bytes": 15622,
+      "sha256": "a9d1d218cdc7751a9f451cc90ac4519097986d5c7f66fdbd4a4158f53e32b750"
+    },
+    {
+      "path": "scripts/generate_pilot_evidence_binder.py",
+      "bytes": 24359,
+      "sha256": "97c7056a5c111ede83cdbc946700cbde50c6ca75738bd5dc5cf762c89ffe8b61"
+    },
+    {
+      "path": "scripts/generate_public_deploy_playbook_pack.py",
+      "bytes": 30001,
+      "sha256": "9dcdb38b657c6d58d97d10c625b2a65c1f645d7ebfcddf6bf42afccf40e8007b"
+    },
+    {
+      "path": "scripts/generate_public_launch_commander.py",
+      "bytes": 16467,
+      "sha256": "42d84e83ed0045cf93ca120525c89f7d8d47a59f3d33b9fe78cf742e84b3af4b"
+    },
+    {
+      "path": "scripts/generate_reviewer_5min_drill_pack.py",
+      "bytes": 30389,
+      "sha256": "b3410f5d2933552b4b0e8afea7deaea3291d96fec12e24bd866a991648a612be"
+    },
+    {
+      "path": "scripts/generate_sites_publish_preflight.py",
+      "bytes": 13324,
+      "sha256": "bc39fd24c36ba373d2c8a2e70c7a502e5a69a6788c92845e42a296a8cee5c412"
+    },
+    {
+      "path": "scripts/generate_submission_upload_preflight_pack.py",
+      "bytes": 20087,
+      "sha256": "ce270abfa751097440d95329511d0e8f11185e927c9366209fe64757d0de0f67"
+    },
+    {
+      "path": "scripts/generate_trial_analysis_pack.py",
+      "bytes": 20337,
+      "sha256": "2b8c6f667c1b6f3b62d5ab51baf9cca65aae4f091b95732cf1aef194774324b6"
+    },
+    {
+      "path": "scripts/package_sepath_submission.py",
+      "bytes": 5300,
+      "sha256": "4ef1eef7ed9088b173bbfe27a843748623144df79b9189e96b020ba4ad961957"
+    },
+    {
+      "path": "scripts/prepare_final_named_submission.py",
+      "bytes": 14772,
+      "sha256": "0b56665b4c82c58f41c611dd82d1e254d402a24eaf28c129f899c67cd849d151"
+    },
+    {
+      "path": "scripts/prepare_v2_final_named_submission.py",
+      "bytes": 9238,
+      "sha256": "21fab086b7207d2ad91d30bac7e9fed745dab95287d61a659393cdc34d11dd2f"
+    },
+    {
+      "path": "scripts/qa_v2_ppt_delivery.py",
+      "bytes": 3259,
+      "sha256": "78a81189e63251263765210a00867c0d3e19dc0e91ea5f28bde984cfcadd1558"
+    },
+    {
+      "path": "scripts/release_gate.py",
+      "bytes": 16643,
+      "sha256": "6cbb684f9bfb16aa406394a0e3080ff0d770eda1c3e5aaa560c02888fa1caf35"
+    },
+    {
+      "path": "scripts/smoke_public_url_validator_local.py",
+      "bytes": 2648,
+      "sha256": "46effd59e4a006c6d03bc62f263f0dd3c004df559e334f8d2e68511d3c413a4e"
+    },
+    {
+      "path": "scripts/sync_public_deploy_index_materials.py",
+      "bytes": 8984,
+      "sha256": "23ec808d2506ec0b42a5b655b7aa82da88a8aebc0ec0ab0ec5725ce5984c6af7"
+    },
+    {
+      "path": "scripts/update_ppt_backend_status_text.py",
+      "bytes": 2798,
+      "sha256": "5925052ba512c0051312e5ac1bdbb2c46875cd93b0311260c4de1f4b66c3b564"
+    },
+    {
+      "path": "scripts/validate_deploy_artifacts.py",
+      "bytes": 12979,
+      "sha256": "648b3b3bb6941e159436548bdfbdb517322851d90dc7eecea377b6fc1c416602"
+    },
+    {
+      "path": "scripts/validate_openapi_contract.py",
+      "bytes": 12175,
+      "sha256": "4a0dacd5acc90ed4e7b54256845e52490c51478807ccf122096e19c57854976e"
+    },
+    {
+      "path": "scripts/validate_public_trial_pwa.py",
+      "bytes": 10849,
+      "sha256": "f83c70d1e04210802e6feca9e7e0753ad59083a56595d84a05702eed77a063f6"
+    },
+    {
+      "path": "scripts/validate_public_url_release.py",
+      "bytes": 9632,
+      "sha256": "4dc93f95bc822a891a5eecb44290db9d06b85d9a2318f882300bd2c102028d97"
+    },
+    {
+      "path": "scripts/verify_release_consistency.py",
+      "bytes": 58246,
+      "sha256": "b4c65728ebd55f73c3bad0af15570c866c16d1059c3259782a4dffb5e0722d64"
+    },
+    {
+      "path": "sepath-cloud-app/.dockerignore",
+      "bytes": 108,
+      "sha256": "61654ceb19af38e02a0bd47fc708212f8beea1375baecb43152c9a996104092e"
+    },
+    {
+      "path": "sepath-cloud-app/.env.example",
+      "bytes": 89,
+      "sha256": "a5cea54f0fb74abbb621b74c5cb3385e4d505334d8ebde5f9f94f7a585c38cbb"
+    },
+    {
+      "path": "sepath-cloud-app/.gitignore",
+      "bytes": 207,
+      "sha256": "be38c3d3822a6e8545cedcc40fcf6f3024bd748acd01fe2672864246345e126a"
+    },
+    {
+      "path": "sepath-cloud-app/DEPLOY_PUBLIC.md",
+      "bytes": 3491,
+      "sha256": "6c13f9e94ffb4d57c5b85b0f93fd2e1879dafabc7d2f2c25c4253b7ca4a80b2c"
+    },
+    {
+      "path": "sepath-cloud-app/Dockerfile",
+      "bytes": 233,
+      "sha256": "f3a523bcf593c8bed42fff9f0c82d9d0cd68491de4781c5b97b4dd5b955287ae"
+    },
+    {
+      "path": "sepath-cloud-app/README.md",
+      "bytes": 1701,
+      "sha256": "63a707ce196fed6d156aa5e6863aa8322efb10056f8d84db0b056a300fb1aee7"
+    },
+    {
+      "path": "sepath-cloud-app/START_DEMO.md",
+      "bytes": 845,
+      "sha256": "54eb861c24a0d733704f31cf112a72efb2230f55084e500b24133c30f7077da4"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/CLOUD_READY_CHECKLIST.md",
+      "bytes": 1815,
+      "sha256": "72af3896d9d0286e140c412746a10716e90543e8e71c28efe15e3fd88f577cea"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/GITHUB_ACTIONS_WEBHOOK.md",
+      "bytes": 2618,
+      "sha256": "417e087b16c22ec72f395b26ec8aeaa509537cb0876200b7f7ef6c58d2e57dee"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/README_DATA_PLANE.md",
+      "bytes": 689,
+      "sha256": "ef9cf2ea18dd4c9be9d32f7083d378d428b38fa78934396fe42d2647ae1b45f5"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/README_EDGE_API.md",
+      "bytes": 17201,
+      "sha256": "32f457414482f9c5b5d31c760f244287b06692313f53e68422e07c57f0f599f1"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/README_LLM_GATEWAY.md",
+      "bytes": 3004,
+      "sha256": "776b583c1d2251e5a863fac7e9a23e4ca79ee7a71385cf02442d99a20f6c87cd"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/SECRET_SETUP.md",
+      "bytes": 1921,
+      "sha256": "c6da2c8ab5588eb16f6c724b8e26ee97a20749ee3af0dc5f61c3013c8cbf102e"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/edge-api-auth.mjs",
+      "bytes": 2279,
+      "sha256": "4c5764079a2e66f562c002c0e89957320fa875bebe689e61d5789c93d5620e7e"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/edge-api-store.mjs",
+      "bytes": 30386,
+      "sha256": "8496c59e49266b3480bdabf3d6aa05ce66d209b70596fd3c4ec12c45be03e963"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/edge-api-worker.mjs",
+      "bytes": 144312,
+      "sha256": "62e23b557bd40179fd18f2b3db7674d26b8fa178b38156549873109d36ef8bcb"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/examples/github-actions-sepath-ci-evidence.yml",
+      "bytes": 2087,
+      "sha256": "b63bb490ca7a34a6b11d02c03b8da5ede6e8a673814eb8de8737b57e17795dbd"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/llm-gateway-worker.mjs",
+      "bytes": 15650,
+      "sha256": "fae755c0e8dad24b5458cb0b530c786a7ef6cd175f594d9552f671c880cad876"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/llm-gateway-worker.ts",
+      "bytes": 290,
+      "sha256": "2e2971d38d8267536bbda5816d766a12ec3e42d7eed172c87a8f69ebd6e61a37"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/openapi.sepath.json",
+      "bytes": 188204,
+      "sha256": "04843793a346cd1a686dea861d49286597618c293b190b74c6cf31903c2b4723"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/serve_edge_api_worker.mjs",
+      "bytes": 4499,
+      "sha256": "f4bf06dfdb28449524bc899cd43ac4a33a6960ce7977c28d7f439404745081eb"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/serve_llm_gateway_worker.mjs",
+      "bytes": 2689,
+      "sha256": "3e10f30f93b944b3f78af3fbbd62ac031a881f7434c80861211eb2d5900e5ea5"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/sql/001_init_sepath_schema.sql",
+      "bytes": 2808,
+      "sha256": "fddb802a37f8ea779f0c24ff165acdacb479d816c631a40b064abed859c222f4"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/sql/002_enable_rls.sql",
+      "bytes": 2375,
+      "sha256": "46ff2fdb84a318fa546918c15d78526439bed93160c2f07a19f5c5929be6aff0"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/sql/003_evidence_indexes.sql",
+      "bytes": 1032,
+      "sha256": "437b9942e08bde3a6da157355d00332c0c61343021cf2b566566a350270e4b57"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/sql/004_workbench_runtime_store.sql",
+      "bytes": 983,
+      "sha256": "16e9b9d170e0bd9e05b268bf349607e93f3cd607f98a33aa31f7aa28e689ef18"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/sql/005_cloud_ready_records.sql",
+      "bytes": 1557,
+      "sha256": "14c1890807029358e7592b4a04919c4ee1e7cb6df5470df6670bd681990eaf32"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/work-order-agent.mjs",
+      "bytes": 22769,
+      "sha256": "1ec6fe0f00ff1aa06437cfbc56916f796a547e1f44ccc26a3a608fa45d36bead"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/workbench-domain.mjs",
+      "bytes": 87172,
+      "sha256": "e85f3546e87b1f9a46710c06710e8056369a13f98f9957c5bb888da4a386d80b"
+    },
+    {
+      "path": "sepath-cloud-app/cloud/wrangler.sepath.example.toml",
+      "bytes": 808,
+      "sha256": "31fdf7a00f1e96ae05a762c1285a9f67c44d4a484d7ab3786cdc20eacc6ac147"
+    },
+    {
+      "path": "sepath-cloud-app/deploy/tencent/README_TENCENT_CVM.md",
+      "bytes": 1255,
+      "sha256": "cfe6586497c6a8fff5dd6b435be1e072632208615fc78fc7840871fdee578e70"
+    },
+    {
+      "path": "sepath-cloud-app/deploy/tencent/install_on_ubuntu.sh",
+      "bytes": 1813,
+      "sha256": "11e1503f18641b85666252ea8e015e792f4a821a0e7e5a7fbf91e69bef88b5f0"
+    },
+    {
+      "path": "sepath-cloud-app/deploy/tencent/nginx-sepath.conf",
+      "bytes": 1103,
+      "sha256": "73de1a6346e59ae6749fa56262763b8dae43af3cd4b668eff14d6efebffa850d"
+    },
+    {
+      "path": "sepath-cloud-app/deploy/tencent/sepath-api.env.example",
+      "bytes": 615,
+      "sha256": "9fe7d26564b50312d58c87fba0c5a821604e917178dd41d96682950ef581c3df"
+    },
+    {
+      "path": "sepath-cloud-app/deploy/tencent/sepath-api.service",
+      "bytes": 450,
+      "sha256": "466f2c5a4bd418fb5195e5fa13b707b8195d0ba005bb96dd654d928430972016"
+    },
+    {
+      "path": "sepath-cloud-app/deploy/tencent/sync_teacher_access_code.sh",
+      "bytes": 1085,
+      "sha256": "f7c0e4040e241e157d201565a867668f999c1e374f7e6c7a45ca357a9b8b882a"
+    },
+    {
+      "path": "sepath-cloud-app/design-qa.md",
+      "bytes": 20516,
+      "sha256": "1e5435b0b8207cbb43a03105d4940796d743ae6f6266e9e76f228dd4d6e4d9f5"
+    },
+    {
+      "path": "sepath-cloud-app/docker-compose.yml",
+      "bytes": 429,
+      "sha256": "2bec221c250093b548b05ec694fc5cc047e432b02ce32dfa800723c15139121e"
+    },
+    {
+      "path": "sepath-cloud-app/docs/ALGORITHM_INTEGRATION.md",
+      "bytes": 3453,
+      "sha256": "5265cda9e151a9f9ee0573eb1a7e823e958c40655f0c6242d6557b71c6ab6398"
+    },
+    {
+      "path": "sepath-cloud-app/docs/CLOUD_ARCHITECTURE.md",
+      "bytes": 1851,
+      "sha256": "9b594a1884af8493fc9b2a7c049f7477e9056c632a91455cb21d4c1d094fcd36"
+    },
+    {
+      "path": "sepath-cloud-app/docs/VALIDATION_REPORT.md",
+      "bytes": 1993,
+      "sha256": "edd333260b87a5e3d4f899ca0cd5a583e62d21f063fd191e856205be46e1c57b"
+    },
+    {
+      "path": "sepath-cloud-app/index.html",
+      "bytes": 619,
+      "sha256": "be8da901917fa0d91ef400beb4e668cea1d61dfae396244beb25181d10dcd74b"
+    },
+    {
+      "path": "sepath-cloud-app/netlify.toml",
+      "bytes": 228,
+      "sha256": "8ae006a13e78213700e5f7a40b1abab2592a8532d45b729e9ca687f4ead2ea62"
+    },
+    {
+      "path": "sepath-cloud-app/nginx.conf",
+      "bytes": 304,
+      "sha256": "63d3abdad1aa1c4d297ba2ed7b4d23ea3c205cd0afeb118e543176e4ea644472"
+    },
+    {
+      "path": "sepath-cloud-app/package-lock.json",
+      "bytes": 69263,
+      "sha256": "2a3ba37ebcf1ff5f7c5e12d8ae64ca7a2a6f8bbe9adc9644dfb85d80256b0db4"
+    },
+    {
+      "path": "sepath-cloud-app/package.json",
+      "bytes": 4994,
+      "sha256": "824fb86a82e3f9ebd439703e55847aeff8483d741ae34a5377cc5cfbc4f5bd81"
+    },
+    {
+      "path": "sepath-cloud-app/public/manifest.webmanifest",
+      "bytes": 680,
+      "sha256": "5c1c2556bf037e5be6a5282e47773b6ab3595bce9f05e3e3855ae3cf4fd60d44"
+    },
+    {
+      "path": "sepath-cloud-app/public/maskable-icon.svg",
+      "bytes": 481,
+      "sha256": "d7e5931259f35f91404898a11f793ee23a0bfaf24cc80d2b335e19c8cdb16c8b"
+    },
+    {
+      "path": "sepath-cloud-app/public/offline.html",
+      "bytes": 2079,
+      "sha256": "16741cf67a9798baa89b2baabf99132156d22206bbc5b539ab046b4f38eff596"
+    },
+    {
+      "path": "sepath-cloud-app/public/pwa-icon.svg",
+      "bytes": 550,
+      "sha256": "08f33a0f30ad7ac9fe9ed2e0db813808a28cc13166ef611639c23ab0d851ea9e"
+    },
+    {
+      "path": "sepath-cloud-app/public/sw.js",
+      "bytes": 1818,
+      "sha256": "7cde661fefae5efdf260a2ccfc0a3e805cd8004b791a250b02d61738b3aa130f"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/bootstrap_tencent_pilot.mjs",
+      "bytes": 9332,
+      "sha256": "6568b68f96de1f09c5b4e1f6f6fba5c0dd70ec30d06cba9002f3ee42e1c45d9b"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/build_tencent_server_release.ps1",
+      "bytes": 3619,
+      "sha256": "3a004a07e382721479fdc0f9d5d8024e7e642c10587d3351ddb5ab1901d5c6b0"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/capture_demo_flow.mjs",
+      "bytes": 11043,
+      "sha256": "0a2c887d0de28c3a48201b1375b27405eab559e1e7d9f90e0673e6a227d74c1b"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/capture_playwright_screenshot.mjs",
+      "bytes": 11972,
+      "sha256": "cafd14d7b134f25c67ea7c6c01102591a3f56a081a52ab1d88a812c5fd0d3335"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/capture_screenshot.mjs",
+      "bytes": 10607,
+      "sha256": "19d65f855cff2dc39034f915033ecf3f609da2b599475eb433ac280b52537c12"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/capture_with_dev_server.mjs",
+      "bytes": 6293,
+      "sha256": "8e21ffbc13e5e371519f7b51726e9b69f52696368b4f115bc9887bb308b89284"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/check_tencent_llm.py",
+      "bytes": 7447,
+      "sha256": "e646eac0cb0bad070a5ac57f4dc8490a0aed489541115037beb08b0cc51e5a6f"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/check_tencent_ssh.py",
+      "bytes": 1433,
+      "sha256": "3c193a78e56afe28a78f8efe2b686b57ea147391c0ae29a5747588c42ef25ba7"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/deploy_tencent_release.py",
+      "bytes": 4936,
+      "sha256": "f32a93e0b670845e6b4f1458c694df9cd27a61ac7159ecedb5f752609b20486a"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/inspect_tencent_service.py",
+      "bytes": 2548,
+      "sha256": "06282d89c3d959067252b526bd2e1896cb6bfd40fef2b66fa080bad6c02d3cf2"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/probe_layout.mjs",
+      "bytes": 4046,
+      "sha256": "bbf0d90c73ecafd0567975cb656c1fe01adcf26dd17e926638bf0d965cc0c294"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/run_closed_loop_demo_check.mjs",
+      "bytes": 7402,
+      "sha256": "b0269ba22b8cd54db03502334ab2e451c814d68220f7b11ccf3a6989412b11cb"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/run_cloud_slo_load_test.mjs",
+      "bytes": 11612,
+      "sha256": "1d3c7fb9059a94dc583512052e32addc2064939bb2bf06738b8490d41eeb1131"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/run_reviewer_drill_check.mjs",
+      "bytes": 7250,
+      "sha256": "0b87277ffe464333fdb3ffcaa6ed2f8766774c4f3133ee4dbb085ba5aeca528d"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/serve_agent_acceptance.mjs",
+      "bytes": 2208,
+      "sha256": "7bf3ba6265bf72ed97f3ea4759af2ecbfd4787b06bb5a85facb0a5b2df6d6279"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/set_cloudflare_secrets.ps1",
+      "bytes": 3242,
+      "sha256": "136f2b10fa37842341eef9ec641e1e462594538da15fd3ff9df96a8998fbedaf"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/smoke_edge_api_database_store.mjs",
+      "bytes": 165,
+      "sha256": "3a12218d0ac655603e7b4e80c1a90ecbc9ca62f4f6058b9b143fff4b4283f120"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/smoke_edge_api_http.mjs",
+      "bytes": 1356,
+      "sha256": "bc7eee0928970cbb0ad066dff87ba02145a44da943b96e11614599b8038d014a"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/smoke_edge_api_worker.mjs",
+      "bytes": 103061,
+      "sha256": "c2a1f350c0319b82f06ae683c056689b8c344c605c6fe6c28aef3f3bc21ff703"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/smoke_llm_gateway_http.mjs",
+      "bytes": 1309,
+      "sha256": "0c807b38ea353f4f5b50bf37488f25c9ac58a0890dad2817c695ddc8a883db6b"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/smoke_llm_gateway_worker.mjs",
+      "bytes": 8902,
+      "sha256": "e9c7b4e7a277d2c89a07054585c7014c78cf8547aa0fc79d52fc64d6193a7c16"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/start_preview_detached.mjs",
+      "bytes": 3460,
+      "sha256": "ed1168f6b2d2a0500b40a69301bb37abe4d94c24145527a636229b9e9be0982c"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/test_teaching_agent.mjs",
+      "bytes": 11261,
+      "sha256": "2a85e7dc0bd78c16819f3dd4df3088e169b86b9c6183fbcf28a98ea72f8b9964"
+    },
+    {
+      "path": "sepath-cloud-app/scripts/update_agent_openapi_contract.mjs",
+      "bytes": 10234,
+      "sha256": "37fe204e6a20a880dd0629ac7159d43cb797011208aef4c9cce55ac3d1c4b41c"
+    },
+    {
+      "path": "sepath-cloud-app/src/App.tsx",
+      "bytes": 49777,
+      "sha256": "8b4afc12b65c36a5a05311b528272559708a0e164f0eb199bca25bb546e0a049"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/AgentRuntimePanel.tsx",
+      "bytes": 5581,
+      "sha256": "eaf40b754de51a01d5b16596cfdf91ba07735eaeb04684ab1956b25acb5f944a"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/ApiContractPanel.tsx",
+      "bytes": 5111,
+      "sha256": "c54c32a09578800a94b9a32a060e95b8c936360f904ed9789b99c4ced3b0991b"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/AwardReadinessPanel.tsx",
+      "bytes": 2348,
+      "sha256": "dbe07bdac13987ae582f825e17bdbad385b473cfa84476005dd82da6802143d1"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/BackendStatusPanel.tsx",
+      "bytes": 5355,
+      "sha256": "e905274a96e042dca4f720f4da60b650105c6f4ec03dbcb2ca783df48746fede"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/ClaimEvidenceLedgerPanel.tsx",
+      "bytes": 7887,
+      "sha256": "c0b885b99fadf865db291a51564a6e554e667405c1f1523988cee82853247653"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/ClosedLoopDemoPanel.tsx",
+      "bytes": 16351,
+      "sha256": "df91a9671bf908c0eca7223cf403ceca43491baf62cb9bde1ca256543e9a728f"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/CloudHandoffPanel.tsx",
+      "bytes": 6747,
+      "sha256": "178ae808dc4e65c8e6637dca3de249afb19dc0936346730b859fbf89ceeba719"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/CloudSloPanel.tsx",
+      "bytes": 5071,
+      "sha256": "b2aebfe9c51dfc0a3b81a134a9a9247bbaed8a0b684774b81883a5354e4f157f"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/CohortOpsPanel.tsx",
+      "bytes": 3459,
+      "sha256": "e99759826c0710645ce4910868faecd8e160ca30e4fcd7d214946ee49bf33084"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/CompetencyPanel.tsx",
+      "bytes": 1218,
+      "sha256": "fd369c52bbe8d1f52c8c5c0e819122d5470d4fce7ff9f5b4dbd2cf7c06c11ece"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/CompetitionAlignmentPanel.tsx",
+      "bytes": 6129,
+      "sha256": "7c1e38d81d1e04c040a936837649411f2163de9f335203d83dc4f7e585dcba22"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/CourseAuthoringPanel.tsx",
+      "bytes": 5401,
+      "sha256": "908455f212819516f8a1c5993a6cc78705ff3579cfd364a72476b26ddf73138c"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/CourseLaunchPanel.tsx",
+      "bytes": 6939,
+      "sha256": "f8453e051a223c8f0c4f7ac5033880b759186687a6c66dd33c9c38fe5570abc3"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/DataPlanePanel.tsx",
+      "bytes": 8101,
+      "sha256": "59d0275c263dfbec1f210f064dc9a1b371dcb9d68ef3e194aae81cb3a9b25425"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/DecisionPanel.tsx",
+      "bytes": 2130,
+      "sha256": "48b4dcecd4058ad859f197ee953804e943613873ad48ea6f8989d89e66fcda3a"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/EvidenceCapturePanel.tsx",
+      "bytes": 6351,
+      "sha256": "9b17750893dbd73f8c1da08393081f957e471d1bdb8498f0ef82019edc7be661"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/EvidenceTimeline.tsx",
+      "bytes": 1260,
+      "sha256": "b5f3fc105c9068e69fdb483357fde675e4c2a879320892b5a612f3e1a12a7900"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/FinalDefensePanel.tsx",
+      "bytes": 8079,
+      "sha256": "4f07d6c46c97478f60a16de563dd9fcd519ac06cb8a6591b58d196a23389290c"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/FinalSubmissionPanel.tsx",
+      "bytes": 8682,
+      "sha256": "691fa05cc4d697c552fe818feab842451f3859c3d8b2d1d5acf4b8823305a6b1"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/HostingSelftestPanel.tsx",
+      "bytes": 4897,
+      "sha256": "e532ef9510f45634cf769c21d87a8b7168565629f22e608a12beb514fde92f67"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/InferenceGatewayPanel.tsx",
+      "bytes": 6493,
+      "sha256": "a7a684183a366b6805dd2fd4b28eb623ad78a53b71da8768d9dd87533c01530b"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/IntegrationSandboxPanel.tsx",
+      "bytes": 5261,
+      "sha256": "a426a4bc0c4b4058050bd7e011b48690899e39bb47f820e23be14ab9da7e8372"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/InterventionPlaybookPanel.tsx",
+      "bytes": 6741,
+      "sha256": "f285dd93efae79e0ac594a911f05a080a261d861d40b64320dc71b0b08b9b79f"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/JudgeTrialPanel.tsx",
+      "bytes": 7001,
+      "sha256": "6ed721ddf83a234ff6496ff630286e856f1c1975b85dae047a536a719bdabe13"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/JudgeVerificationPanel.tsx",
+      "bytes": 4949,
+      "sha256": "73f713d572e79f0da24448ab83a940ccdc6a3b32186e3da80a49bc6897d400e4"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/KnowledgeBoundaryPanel.tsx",
+      "bytes": 3271,
+      "sha256": "d402acf351abe41b1ea92f40c2468592f16692ae2c1a0fb4b2e5d5047e6c6484"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/LaunchLoopAcceptancePanel.tsx",
+      "bytes": 6769,
+      "sha256": "0a34ffe53f4fb636f4ffbb9ce3174e8ef687cc9424bfbe22d66aeddedda0206f"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/LaunchReadinessPanel.tsx",
+      "bytes": 3013,
+      "sha256": "0bc01be7e030f19f83280402c57634416f5e09186275787c2a4a737d874aaa37"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/MetricCard.tsx",
+      "bytes": 445,
+      "sha256": "a2894a2f2e0b31d8523071e659dca00fe647fb26d10ac4de94bf54734d9bfe20"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/ModelOpsPanel.tsx",
+      "bytes": 4912,
+      "sha256": "02abf70cdf872175d8553fe897960cbd879ad55ec1c75b5585fa498117d4ab78"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/PathBoard.tsx",
+      "bytes": 1049,
+      "sha256": "9260840efeeda73572df2a71a21bfc4989495d7b0bfef33a7089f88bcc2ecf99"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/PilotEvidenceBinderPanel.tsx",
+      "bytes": 6972,
+      "sha256": "186c43a44a07a32c9194ce7a77757943ec980e293f92001bcefb39eb215390e7"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/PilotReadinessPanel.tsx",
+      "bytes": 4104,
+      "sha256": "7364fd04a1e7eb5fdb4c2d4028368a433dfd575b4c2ad4f4ef65c7284572b38d"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/PitchDirectorPanel.tsx",
+      "bytes": 8136,
+      "sha256": "d96e953091256a94a4b5f6b469d59c3925db91fa2045cdefc9ba28e35e07ae62"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/PrivacyGuardPanel.tsx",
+      "bytes": 3679,
+      "sha256": "94ff71d1b7b11e57802f27281adeb45778dfbbd0cc26e2cdaa7446c32e9fe8bf"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/PublicUrlReceiptPanel.tsx",
+      "bytes": 8429,
+      "sha256": "e167fb73fd24ac47498d2af6a1d458b628c5352658d248b6300c643c21e85d16"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/RealWorkOrderPanel.tsx",
+      "bytes": 8940,
+      "sha256": "b8297c27ab6955825c629f3aa7253632407fe714fd23cfec196eb4833e1d9d4b"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/RepositoryImportPanel.tsx",
+      "bytes": 2487,
+      "sha256": "540738688080a2e55f72640364f98d1b087812db61cf01fb1ac68c50b0b37da9"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/ResearchEvidencePanel.tsx",
+      "bytes": 3195,
+      "sha256": "be798bddce57ff5ea51221b5641820ed6a0862247985cd302c92a6e523bc6b74"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/ResearchFusionPanel.tsx",
+      "bytes": 10003,
+      "sha256": "759958c118a3c785dc5f84045245141cf43f516e1c8450f713e1785564dc777f"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/ReviewerDrillPanel.tsx",
+      "bytes": 6189,
+      "sha256": "32cc20d978d48e153e7b0ac03d4471b45b9d6036a77f3544d8e2fe3fd0f86827"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/ReviewerGuideOverlay.tsx",
+      "bytes": 4071,
+      "sha256": "e3468a2b420e784969389b6b6ff0ff19d29be38187de758172ff12187c4a017e"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/RubricCalibrationPanel.tsx",
+      "bytes": 8658,
+      "sha256": "f561d31a449809506aab23d12a13592f367102835da24a47498a8961cb782da8"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/SchoolProvisioningPanel.tsx",
+      "bytes": 9951,
+      "sha256": "c822419ff10e60b8d009e14ffbf2ca89a305d8e6c32fd370872461095c52f3b5"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/StrategyLabPanel.tsx",
+      "bytes": 3902,
+      "sha256": "cf4475134009515369c7a60074b623d713c1572961bb411e54b6ec4e4d8ff0d6"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/StudentDialoguePanel.tsx",
+      "bytes": 5279,
+      "sha256": "6bf2671294faf20d8dea771cc5a2b89d3cc36b02f0b6b01a0ae63c51ed934532"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/SubmissionClosurePanel.tsx",
+      "bytes": 7335,
+      "sha256": "065b55cf26854742151270921c36df994228d8780ca3d3a7807f5d93068f860c"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/SubmissionOpsPanel.tsx",
+      "bytes": 6419,
+      "sha256": "96b3ec8b66ab93cb19e765111baac83cb694c5bd510cb1414f66123a8c20fc61"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/TeacherConsole.tsx",
+      "bytes": 1042,
+      "sha256": "a6ab00b37f58dcf2cd8e81fa0643454fc10dcc5b5cb0976d88101d0ed66815c5"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/TeacherReportPanel.tsx",
+      "bytes": 4642,
+      "sha256": "21aea22ea287ed63fd7d86e61f5bc7d1a75237b1663602de28971989bccef2cf"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/TenantOpsPanel.tsx",
+      "bytes": 8793,
+      "sha256": "3d5ef35371993f0b09760e4f21fd32c3b857f43777c718c1579c51680fc0ba86"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/TracePanel.tsx",
+      "bytes": 1057,
+      "sha256": "fc3fed74b7be9dfef377f038dc02874484342b48ec69ed882fab8cd3c1879f7b"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/TrialTelemetryPanel.tsx",
+      "bytes": 10412,
+      "sha256": "5c9eaf39999efaa2e866e859070b68fc5107960591a5caac4b09abbe9de3008b"
+    },
+    {
+      "path": "sepath-cloud-app/src/components/ValueUpliftPanel.tsx",
+      "bytes": 6759,
+      "sha256": "d920398edf5a7928f881ab950d1d9f1fdba03221f1b71390276895e1435e0e86"
+    },
+    {
+      "path": "sepath-cloud-app/src/domain/types.ts",
+      "bytes": 4326,
+      "sha256": "b4a0042940f663c8054341bc18704d60476822122d967423b2d7d074d7c46761"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/agentRuntime.ts",
+      "bytes": 13190,
+      "sha256": "e41a3a980fbcb1e5eed22a8b4e4286f565d2ee9894e1fee320a522014450aabb"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/apiContract.ts",
+      "bytes": 15495,
+      "sha256": "81aa526cc5239e0651d14d6456d2fed43cfd0d73d7c5e699f13fbeb50628ea91"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/awardReadiness.ts",
+      "bytes": 4314,
+      "sha256": "876c0c7600b0c7f366cae9df7c14c5a3f15986ac6f283a4d27ef009ea895fd97"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/backendStatus.ts",
+      "bytes": 13878,
+      "sha256": "e7493a2d5d7f5bfd35856ba27e1dbeae6df32a97329e0429dd20063ac5218b5f"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/claimEvidenceLedger.ts",
+      "bytes": 20693,
+      "sha256": "9ad2ab1f8f925350261e6bad9935cb5f8c073e41cc800ed1fac0014355c050ef"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/closedLoopDemo.ts",
+      "bytes": 6243,
+      "sha256": "878f45dbb94b57f3bd28e3851a123de01f545623f42555df9702b348d54f531f"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/cloudHandoff.ts",
+      "bytes": 20914,
+      "sha256": "14657e1484dab02bb36fc6b33a3dd3ca2d3d8ea04f102e2b1a14db9aac08846d"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/cloudSlo.ts",
+      "bytes": 9635,
+      "sha256": "f66546b7c10cf1e7e48e1a2b24c6e07205c9ae64d043f521e2bd4aa8608f09ab"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/cohortOps.ts",
+      "bytes": 5469,
+      "sha256": "a18b0e8f150809efb7df12305196a0fd2778035c10b32f0f3cf5d0ff1d747046"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/competitionAlignment.ts",
+      "bytes": 15084,
+      "sha256": "c5ad851d34aeb983318e626aa15f4bed355e1590d6f93eef789260584f4a686c"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/courseAuthoring.ts",
+      "bytes": 13663,
+      "sha256": "e2c726a5eca3cb3bff209dfc631de55227b20baab348a1c74e8d52373efb28a4"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/courseLaunch.ts",
+      "bytes": 15465,
+      "sha256": "cde8a8ee27fcd57789420d3519f65e583311a905e30caff99e752a85fee923f3"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/dataPlane.ts",
+      "bytes": 21977,
+      "sha256": "5314b47ed276af29df2e37c6e9b26ba87ef7d9c3c9ddb8e1efa3f44a3c1fcf70"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/demoOrchestrator.ts",
+      "bytes": 1198,
+      "sha256": "18b59e038be30686264c3d6eb8c4d6785452b18c80dced9c279ea7881f7fa147"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/diagnosis.ts",
+      "bytes": 2121,
+      "sha256": "8755c65b07062d4863ec5a4092194c0da6555e099d6ef7f70006a95e8d98f333"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/engine.test.ts",
+      "bytes": 66185,
+      "sha256": "08615e58bf1aaf5ae3882ee214e45890315b4f406521382594beb1070587d36c"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/eventIngestion.ts",
+      "bytes": 5421,
+      "sha256": "65241370c7f9d4d9afc3b363f6b03676177e8e710fe49ceb4f72edba5b73e3b7"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/evidence.ts",
+      "bytes": 1272,
+      "sha256": "a4dc878225d499b78e99028e55abb7779a2f8c112768368e7e9923430a661aec"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/finalDefense.ts",
+      "bytes": 20029,
+      "sha256": "46e4fe96c168ee2d0c1d170602a59f81c6bced871a855908d0d2f9d6b28e4fa9"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/finalSubmission.ts",
+      "bytes": 20883,
+      "sha256": "ad2175deb0371526168f8bf71f26dc4357cd4aebbd1f39c57ecd723f43ed432c"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/hostingSelftest.ts",
+      "bytes": 10388,
+      "sha256": "b92806294a088011446a6a404fef467057434dd1b91ad20a5a38b4938e127959"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/inferenceGateway.ts",
+      "bytes": 17015,
+      "sha256": "0907beead4110d0c6a43561ad8ae19add182d7d666862957c942958f3f9df86a"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/integrationSandbox.ts",
+      "bytes": 12380,
+      "sha256": "ae55c7b0bcf8e1abf10ae49ab211f6193a66c002c2fba65cc46ef069b174304a"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/interventionPlaybook.ts",
+      "bytes": 17433,
+      "sha256": "1899d25de42be5d9f9ac53ba83ed94dff5d34f489a442d29f6e9bb70e5dd3f75"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/judgeTrial.ts",
+      "bytes": 18193,
+      "sha256": "34b28888cbec95a12ae40a0ccffbe34bff75df13a53f894c84858b8d6c982b40"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/judgeVerification.ts",
+      "bytes": 14766,
+      "sha256": "bb09278c8e5d4b04587fd5be6ff92daa441873430069128327da717971663bbb"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/knowledgeBoundary.ts",
+      "bytes": 4085,
+      "sha256": "e4d62cc72285c005eee085645b4151f3da6f8ee9f9fce4ac8a4af8d1d71a2496"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/launchLoopAcceptance.ts",
+      "bytes": 16588,
+      "sha256": "9d29d7b90243efe60e1d1784d37db6a8d3db00d0ea592796433438e3ed4ec02a"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/launchReadiness.ts",
+      "bytes": 5207,
+      "sha256": "e402b912fbb52c5cd44ee0705d4a23b11ffb26ab50e8a381d57bc3b35dc8de96"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/ledgerExchange.ts",
+      "bytes": 6134,
+      "sha256": "35f0f61a86c0caf999fe207fc0bc2d417f52d473fb6810f034e6f5b0b653efda"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/modelOps.ts",
+      "bytes": 12575,
+      "sha256": "fe1d62df196a459d9d748a25d4fa33b59cd80a87efc948788ca06e3dba53674b"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/pathTwin.ts",
+      "bytes": 1336,
+      "sha256": "5b271d2aeb1134d232071c3c735aa2cb3c8b5cfbcb900fd442b45bca2952a027"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/pilotEvidenceBinder.ts",
+      "bytes": 15832,
+      "sha256": "033ca6970fa9c8c1ae5d62b24d9a31afc97e29ce2f48d40a14d0b1ecf88b3327"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/pilotReadiness.ts",
+      "bytes": 9813,
+      "sha256": "dc07925a81a45057ced000af10821500d33049259d18716e51150afe647a39dd"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/pitchDirector.ts",
+      "bytes": 22160,
+      "sha256": "5c45045dfb5417d0aa201a51641dd8ee34f02623ad4972c362cdbb60c4a5381b"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/privacyGuard.ts",
+      "bytes": 7372,
+      "sha256": "831e4373605b146a8e22afa56efa4a277a82da32dd78e8abf88923e1f3ced49a"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/publicUrlReceipt.ts",
+      "bytes": 11485,
+      "sha256": "1a517b140861d5608908ca90496bb0c8b49d0f8a9a8fe5d2d1738cbd31a76c1d"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/realWorkOrder.ts",
+      "bytes": 12155,
+      "sha256": "509cd3fc281467f127fce5cc97aef726bb9c5b909ab9a21794bb2d2b78e43c71"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/researchEvidence.ts",
+      "bytes": 5316,
+      "sha256": "5c1132f95ad801483572a7f37fea0df7b7a49bf510855aad8fa2665a72d7863e"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/researchFusion.ts",
+      "bytes": 25442,
+      "sha256": "a12f9c2be375662534897f0bdf61758605df866a3b411c0676ceefc6cacdb298"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/reviewGate.ts",
+      "bytes": 1460,
+      "sha256": "47b2bca7f18ae31404b25b4603749a0a6b64c113563cd4ae3f1df557743b2563"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/reviewerDrill.ts",
+      "bytes": 24561,
+      "sha256": "efc190eada7e21a02a1ef3521cfeb1d55a911b0ca0cf3f763f2141ce8fe699a4"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/rubricCalibration.ts",
+      "bytes": 17814,
+      "sha256": "26338339b4c8c9227cee4ac86c039191d64771da78890f09ecbd4687e73c4b1d"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/safeVoi.ts",
+      "bytes": 4747,
+      "sha256": "b591bcaee294444a6908fd6f1e8c71edefbae1562d82a84b561526b335eb93c5"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/scaffold.ts",
+      "bytes": 1270,
+      "sha256": "676c05eed19f2e3bd81987b3c369f5a832247ced3333e77605206e25dc86d002"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/schoolProvisioning.ts",
+      "bytes": 23447,
+      "sha256": "07d8bdaad153dc300114a04bfaca8f5261e0772397e72e2324d324a6b8d491a0"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/strategyLab.ts",
+      "bytes": 8120,
+      "sha256": "008269b8079d73b0e846dc445e765bc38c9f2b8ac738d0975949732ef5c055cc"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/studentDialogue.ts",
+      "bytes": 15867,
+      "sha256": "3652769b893f826680826ad808cc84213e386e3dfb9b4da30f9df6783a1483d8"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/submissionClosure.ts",
+      "bytes": 10839,
+      "sha256": "e4c3d6ef6d161d1e4e44c8a808003f2472c8633257bcc17f54df8973ec629a67"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/submissionOps.ts",
+      "bytes": 14950,
+      "sha256": "00e5f1537ea7d662d2d7a48c7ec7e04eb83956d7f21ceafe55fa863909e653ff"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/summary.ts",
+      "bytes": 692,
+      "sha256": "79b14dc60ad6cb10c63d61b438c56fce87deae4c8704986176de88edcdfd1952"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/teacherReport.ts",
+      "bytes": 11293,
+      "sha256": "21470b2b55e6e6869a1c042e9ad67d23899d542512a539479f62370249d19118"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/tenantOps.ts",
+      "bytes": 20677,
+      "sha256": "93c9c676554cb64af8b2fa42a8a32561d07a63338894a5fc839eed360e9afc67"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/traces.ts",
+      "bytes": 800,
+      "sha256": "601031879f2a4c9f03fe8c0439b6bbb28071197c7409d9db81f4f617dbe8ecd9"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/trialTelemetry.ts",
+      "bytes": 28816,
+      "sha256": "d0f40722240177746474933227996fea03d42941a417ffb16f9d519237bae716"
+    },
+    {
+      "path": "sepath-cloud-app/src/engine/valueUplift.ts",
+      "bytes": 11968,
+      "sha256": "a2efd0a0a8d3cf429de299e0bd650936ec03aa54df14161dddb50536b086fc62"
+    },
+    {
+      "path": "sepath-cloud-app/src/main.tsx",
+      "bytes": 333,
+      "sha256": "4798a0cb3138c09db047772684fc905f2637d6631179989b1f8b24c74e0e194b"
+    },
+    {
+      "path": "sepath-cloud-app/src/registerServiceWorker.ts",
+      "bytes": 1216,
+      "sha256": "71a675704261ee94a824bfd79893e2e2a2d146162b9d5a86581fc0340e849340"
+    },
+    {
+      "path": "sepath-cloud-app/src/styles.css",
+      "bytes": 271840,
+      "sha256": "c327f5332ecffec4d845d8f6181fc08dcd5a4eabfe9d46f4628033628f3ff104"
+    },
+    {
+      "path": "sepath-cloud-app/tsconfig.app.json",
+      "bytes": 578,
+      "sha256": "49aa01c6d5781244438aa3812b328bb444da05629f21d9cbfa180f445e92578e"
+    },
+    {
+      "path": "sepath-cloud-app/tsconfig.json",
+      "bytes": 119,
+      "sha256": "770b4140bbb581e2dfd9ea9946ffc9c75a1d86ba7d2db5f77c83e37cbdf9d808"
+    },
+    {
+      "path": "sepath-cloud-app/tsconfig.node.json",
+      "bytes": 305,
+      "sha256": "1bc64d3345734a4f988a34832bb959684ac9cf305622336dac0f42f07a74de3e"
+    },
+    {
+      "path": "sepath-cloud-app/vercel.json",
+      "bytes": 381,
+      "sha256": "4fa396cf223d2525ab83b74849b162b92db08dfc622d2242a897c52067520a6b"
+    },
+    {
+      "path": "sepath-cloud-app/vite.config.ts",
+      "bytes": 191,
+      "sha256": "43be2a8f3b5ea00e3502dd86916d25e2c6a339c16d2eaaeb1016c22d3d9b5a03"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/.env.cloud.example",
+      "bytes": 230,
+      "sha256": "7c35ce672bb994399a106f1c68c0b19e2a05bfeabc1f730f736a7daea9f60df9"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/.gitignore",
+      "bytes": 116,
+      "sha256": "c8f6ed15691c3b7a3aebba011ebea7926664db485256ab9796fab030e0c0f756"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/design-qa.md",
+      "bytes": 53634,
+      "sha256": "cc4cfe8ead6ff71ee163c394e607bb912eaa93c1431089012a764b9492e5d544"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/index.html",
+      "bytes": 438,
+      "sha256": "c3965d45a62287d8385e7a8c0f505721301da22e8f8a1354146d7d2c96538482"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/package-lock.json",
+      "bytes": 55585,
+      "sha256": "493f7b8b942f35d0b012e18a9ddaf0b389c6cfcbe84d008e7dc7ff2b262f10a9"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/package.json",
+      "bytes": 706,
+      "sha256": "04d359c707c64d08e4e3bf63139b8ce2948a70ec4d663c96b9e6fe14b0354e46"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/public/assets/avatar-lin-zhixing.png",
+      "bytes": 1505311,
+      "sha256": "4e88c86be4d153a18a018bb94aa172c70698a4cca71a477aa4b844a3def507fd"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/public/assets/avatar-teacher-zhang.png",
+      "bytes": 1616798,
+      "sha256": "67a4a8127743b3efac9706516f63cad3a84577469cb7b9758b43c656028ec00a"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/public/assets/lin-zhixing-avatar.png",
+      "bytes": 1283123,
+      "sha256": "ce7b09821b86ceb86534c86c0761104fc355c3e4019f316b167d9053e17a13f8"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/scripts/api-flow-tests.mjs",
+      "bytes": 1151,
+      "sha256": "6da31c7c46ecd61c6dcd4fadb8ea8215aa5cae9ab65a5f05edb8ba0ea172151e"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/scripts/capture-design.mjs",
+      "bytes": 48442,
+      "sha256": "2ca13162edc7bf3c28b377bd3c3e54f0636669bc3e28f0f528dc4b1a3b9781eb"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/scripts/capture-student-return.mjs",
+      "bytes": 10708,
+      "sha256": "266a4e638a29b450a3f03d755dc6ef10f9fd7eba2e42090a277b8dcb4753d4f4"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/scripts/flow-tests.mjs",
+      "bytes": 99444,
+      "sha256": "c03de9a86f6488490450b0fdda0a5f362d2b609a0bfcad9d38cb17bfd7fac74d"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/App.vue",
+      "bytes": 312935,
+      "sha256": "7181a7269b6c56495b9366c948054397fec3c40386b919e18cfc3cd724d35ab2"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/components/RubricWorkbench.vue",
+      "bytes": 19046,
+      "sha256": "bc96d713187a9b3ab720cd7c7efb0e6d108b814202fafc55af46c8339f702388"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/components/TeachingAgent.vue",
+      "bytes": 16802,
+      "sha256": "fd10258472d88eb8fbcfb32872ea64f9a2a9d91bc07513979984157cc51b7334"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/data/workbench.ts",
+      "bytes": 10209,
+      "sha256": "c545529176a485829184825426742416b9da9d2e1a4e00392aca35dd82b5b701"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/main.ts",
+      "bytes": 210,
+      "sha256": "36d1226a1701a73d7ab202dd8b7f9e53c37237a2cdea2d3913f77ddb1db0e49a"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/mock/rubric.ts",
+      "bytes": 5679,
+      "sha256": "74153b0520c1be1a39482558d55075fc26471cda475f9a3e2ebc1811d02c84d4"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/mock/workbench.ts",
+      "bytes": 9501,
+      "sha256": "304fe2039e0f9a0bdc98018e0b5a1a03ec4d591bc4e593f55f7e765481a03a9a"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/services/workbenchApi.ts",
+      "bytes": 144900,
+      "sha256": "d33beefd481c23e91f601647769682ea1866f361bf481a7c562ca99027be7db9"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/style.css",
+      "bytes": 146467,
+      "sha256": "cec1d96992203383ef46d6173e53e2b475cb0d8fcb882228152f283e6ca969b7"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/types.ts",
+      "bytes": 15832,
+      "sha256": "7aa58fec7f6d82e861b9e9da2d0c38e6665b84ae6eb33300a07111ec1ccbb917"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/src/types/teachingAgent.ts",
+      "bytes": 1385,
+      "sha256": "1d4c8b66534346d2d1afd4e27d9286478eff28be59bfbd63b6dc0d9a90507b10"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/tsconfig.json",
+      "bytes": 484,
+      "sha256": "62ad690f619c0e809330612eadba4441027ff7e844b1e3492bc03c1fd89b6c35"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/tsconfig.node.json",
+      "bytes": 187,
+      "sha256": "66362d3973b411c9da6f18808a7149f5e1cf0c3e099815a107a61a71db792adc"
+    },
+    {
+      "path": "sepath-yudao-teacher-console/vite.config.ts",
+      "bytes": 239,
+      "sha256": "5873c87cd9b0777ac8cac1de5623dbc3ca80bbbc77ef9c071c7d8247f324f74d"
+    }
+  ]
+}

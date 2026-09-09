@@ -1,0 +1,84 @@
+{
+  "runtime": "sepath-v2-final-submission-triage.v1",
+  "generated_at": "2026-08-24",
+  "purpose": "正式提交前的材料取舍、评委打开路线和缺口检查",
+  "recommended_main_materials": [
+    {
+      "type": "project_plan",
+      "recommended_name": "队伍名+SE-Path学伴_项目计划书.docx",
+      "path": "../SE-Path学伴_软件工程自适应学习伙伴智能体_产品设计方案/SE-Path学伴_产品设计方案_v2_真实闭环参赛版.docx",
+      "status": "exists"
+    },
+    {
+      "type": "defense_ppt",
+      "recommended_name": "队伍名+SE-Path学伴_答辩PPT.pptx",
+      "path": "./SE-Path学伴_答辩PPT_v0.3_真实闭环版.pptx",
+      "status": "exists"
+    },
+    {
+      "type": "demo_video",
+      "recommended_name": "队伍名+SE-Path学伴_演示视频.mp4",
+      "path": "./演示视频素材/SE-Path学伴_4分40秒演示视频素材_v0.3.mp4",
+      "status": "exists"
+    },
+    {
+      "type": "demo_source",
+      "recommended_name": "队伍名+SE-Path学伴_Demo源码.zip",
+      "path": "../sepath-yudao-teacher-console/",
+      "status": "exists"
+    },
+    {
+      "type": "innovation_defense_backup",
+      "recommended_name": "队伍名+SE-Path学伴_创新与答辩备查.md",
+      "path": "./73_v2真实闭环_创新商业化开源对比与评审答辩材料.md",
+      "status": "exists"
+    },
+    {
+      "type": "evidence_ledger_sample",
+      "recommended_name": "队伍名+SE-Path学伴_证据账本样例.json",
+      "path": "../sepath-yudao-teacher-console/qa/downloads/flow-tests/SE-Path证据账本_林知行_wo-se-018.json",
+      "status": "exists"
+    }
+  ],
+  "do_not_submit_as_main": [
+    "v0.1/v0.2 旧版 PPT",
+    "早期 React 页面截图",
+    "00-72 全量长材料",
+    "未接真实学校数据的效果结论",
+    "自动评价、排名、惩罚或就业预测表述"
+  ],
+  "judge_route_minutes": [
+    "第 1 分钟看题目对齐：软件工程项目式学习、证据闭环、教师确认边界。",
+    "第 2 分钟看 Demo 能动：工单、诊断、Safe-VOI、教师复核、学生回流。",
+    "第 3 分钟看创新不是壳：EvidenceEvent、增值评价、TeacherDecision、证据账本。"
+  ],
+  "generated_pending_package": {
+    "directory": "../submission/v2_final_submission_pending_name/",
+    "zip": "../submission/SE-Path学伴_v2正式提交包_待队伍名替换_2026-08-24.zip",
+    "manifest": "../submission/v2_final_submission_pending_name/MANIFEST_SHA256.json",
+    "zip_size_bytes": 23033808,
+    "zip_sha256": "f61bbb09735a17931731e79ba4d07ad9d5df7bf57ef7f0cc0adde1514e6d2262",
+    "status": "pending_team_name_replacement",
+    "includes_platform_form_copy": true
+  },
+  "boundary": [
+    "本地 mock API 和本地状态证明闭环，不宣称已接真实学校生产数据。",
+    "增值评价只做形成性诊断和学习支持，不做排名、不做惩罚、不做就业预测。",
+    "AI 只生成候选建议，发布、评价和高风险判断均需要教师确认。",
+    "证据不足时显示不确定或待补证，不强行给结论。"
+  ],
+  "human_inputs_remaining": [
+    "队伍名和作品正式名称",
+    "队员姓名、学校、联系方式",
+    "平台是否允许 ZIP、视频、源码和补充材料同时上传",
+    "是否需要公网 URL",
+    "是否重录基于 v2 芋道教师工作台的最终视频"
+  ],
+  "qa": {
+    "status": "PASS",
+    "main_material_count": 6,
+    "judge_route_count": 3,
+    "human_input_remaining_count": 5,
+    "pending_package_created": true
+  }
+}

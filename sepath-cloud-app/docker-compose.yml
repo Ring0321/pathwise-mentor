@@ -1,0 +1,17 @@
+services:
+  sepath-cloud-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sepath-cloud-app:competition-static
+    ports:
+      - "8080:80"
+    environment:
+      SEPATH_RUNTIME: static-public-trial
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/ >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped

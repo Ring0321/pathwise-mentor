@@ -1,0 +1,26 @@
+name = "sepath-edge-api"
+main = "cloud/edge-api-worker.ts"
+compatibility_date = "2026-09-01"
+
+[vars]
+SEPATH_DEPLOY_ENV = "production"
+SEPATH_PRIVACY_MODE = "pseudonymous"
+SEPATH_ALLOWED_ORIGINS = "https://sepath.example.edu"
+LLM_BASE_URL = "https://api.openai.com/v1"
+LLM_MODEL = "replace-with-model-name"
+
+[[d1_databases]]
+binding = "SEPATH_DB"
+database_name = "sepath-runtime"
+database_id = "replace-with-cloudflare-d1-database-id"
+migrations_dir = "cloud/sql"
+
+# Required secrets, set with `wrangler secret put <NAME>`:
+# - SEPATH_AUTH_SECRET
+# - SEPATH_RETURN_SECRET
+# - SEPATH_TOKEN_ISSUER_SECRET
+# - SEPATH_GITHUB_WEBHOOK_SECRET
+# - LLM_API_KEY
+#
+# Browser builds must only receive VITE_SEPATH_API_BASE. Do not put model keys,
+# webhook secrets, database ids or token issuer secrets into the frontend.

@@ -1,0 +1,7102 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SE-Path 学伴 API",
+    "version": "0.8.0",
+    "description": "Machine-readable contract for the SE-Path software-engineering learning companion. The browser only sends pseudonymous learning evidence; API keys, raw logs and real student identifiers stay outside the public package."
+  },
+  "servers": [
+    {
+      "url": "https://{host}",
+      "description": "Production edge or school-hosted API",
+      "variables": {
+        "host": {
+          "default": "sepath.example.edu"
+        }
+      }
+    },
+    {
+      "url": "http://127.0.0.1:{port}",
+      "description": "Local smoke-test adapter",
+      "variables": {
+        "port": {
+          "default": "8787"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "SepathBearer": []
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "operationId": "readHealth",
+        "summary": "Read API health and available routes.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Runtime health summary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/evidence/events": {
+      "post": {
+        "operationId": "createEvidenceEvent",
+        "summary": "Write a pseudonymous learning evidence event.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvidenceEventCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Evidence event accepted or deduplicated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidenceEventCreateResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      },
+      "get": {
+        "operationId": "listEvidenceEvents",
+        "summary": "Read pseudonymous evidence events for a tenant, course and learner.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          },
+          {
+            "$ref": "#/components/parameters/LearnerHash"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Evidence event list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidenceEventListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/workbench/teacher/today": {
+      "get": {
+        "operationId": "readTeacherWorkbenchToday",
+        "summary": "Read today's teacher queue with selected work order, evidence ledger and student-return state.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Teacher workbench snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/work-orders": {
+      "get": {
+        "operationId": "listWorkOrders",
+        "summary": "List software-engineering learning work orders for a tenant and course.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Work order list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkOrderListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/work-order-batches": {
+      "post": {
+        "operationId": "createWorkOrderBatch",
+        "summary": "Create diagnosis-stage candidate work orders from a pseudonymous course roster and a teacher inspection task.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkOrderBatchCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch-created candidate diagnosis work orders and the updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkOrderBatchCreateResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/work-orders/{workOrderId}": {
+      "get": {
+        "operationId": "readWorkOrder",
+        "summary": "Read one learning work order with its ledger and student-return state.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WorkOrderIdPath"
+          },
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          },
+          {
+            "$ref": "#/components/parameters/ReturnToken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Work order detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkOrderDetailResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/work-orders/{workOrderId}/review": {
+      "post": {
+        "operationId": "reviewWorkOrder",
+        "summary": "Write a teacher review decision and return the updated workbench snapshot.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WorkOrderIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkOrderReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated work order and snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkOrderMutationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/work-orders/{workOrderId}/intervention-package": {
+      "post": {
+        "operationId": "publishInterventionPackage",
+        "summary": "Publish a teacher-approved executable learning task package.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WorkOrderIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterventionPackageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Published task package, updated work order and snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkOrderMutationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/micro-task-package": {
+      "post": {
+        "operationId": "publishCourseMicroTaskPackage",
+        "summary": "Publish a teacher-approved course micro-task package into target work-order ledgers.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseMicroTaskPackageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Published micro-task package and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseMicroTaskPackageResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/micro-task-reminder": {
+      "post": {
+        "operationId": "remindCourseMicroTaskTargets",
+        "summary": "Record a teacher reminder for pending learners in one published course micro-task trace.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseMicroTaskReminderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reminder ledger entries and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseMicroTaskReminderResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/teaching-improvement-plan": {
+      "post": {
+        "operationId": "publishCourseTeachingImprovementPlan",
+        "summary": "Publish a teacher-confirmed next-round teaching improvement plan into target work-order ledgers.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseTeachingImprovementPlanRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Published teaching improvement plan and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseTeachingImprovementPlanResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/teaching-improvement-execution": {
+      "post": {
+        "operationId": "recordCourseTeachingImprovementExecution",
+        "summary": "Record that the teacher has executed a published next-round teaching improvement plan.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseTeachingImprovementExecutionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recorded execution receipt and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseTeachingImprovementExecutionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/teaching-improvement-followup-sample": {
+      "post": {
+        "operationId": "recordCourseTeachingImprovementFollowupSample",
+        "summary": "Record the next-round follow-up sampling plan after a teaching improvement execution receipt.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseTeachingImprovementFollowupRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recorded follow-up sampling plan and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseTeachingImprovementFollowupResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/teaching-improvement-followup-result": {
+      "post": {
+        "operationId": "recordCourseTeachingImprovementFollowupResult",
+        "summary": "Collect next-round follow-up observations after the sampling plan is recorded, without causal overclaiming or automatic learner evaluation.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseTeachingImprovementFollowupResultRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recorded follow-up observation results and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseTeachingImprovementFollowupResultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/resource-revision": {
+      "post": {
+        "operationId": "recordCourseResourceRevision",
+        "summary": "Record a teacher-confirmed course resource revision ticket derived from follow-up observation results.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseResourceRevisionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recorded course resource revision entries and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResourceRevisionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/resource-release": {
+      "post": {
+        "operationId": "recordCourseResourceRelease",
+        "summary": "Record a teacher-confirmed course resource release receipt after a resource revision is published to course channels.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseResourceReleaseRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recorded course resource release receipt entries and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResourceReleaseResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/resource-usage": {
+      "post": {
+        "operationId": "recordCourseResourceUsage",
+        "summary": "Record teacher-confirmed course resource usage signals after a release receipt has been written.",
+        "description": "This endpoint records whether revised resources were used and whether new evidence returned. It does not prove causal effect, rank, punish or automatically evaluate learners.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseResourceUsageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recorded course resource usage receipt entries and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResourceUsageResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/resource-usage-reminder": {
+      "post": {
+        "operationId": "remindCourseResourceUsageTargets",
+        "summary": "Remind non-returned learners after a teacher-confirmed course resource usage receipt.",
+        "description": "This endpoint writes teacher reminder ledger entries only when a resource usage receipt has already been recorded. It requests verifiable evidence return and never produces directly submittable answers or automatic learner evaluation.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseResourceUsageReminderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recorded course resource usage reminder entries and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResourceUsageReminderResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/work-orders/{workOrderId}/student-return": {
+      "post": {
+        "operationId": "recordStudentReturn",
+        "summary": "Record a learner return event such as submitted evidence or reflection.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WorkOrderIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentReturnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated student-return state and snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkOrderMutationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/work-orders/{workOrderId}/evidence-review": {
+      "post": {
+        "operationId": "recordTeacherEvidenceReview",
+        "summary": "Teacher reviews each returned learner evidence item before final acceptance.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WorkOrderIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherEvidenceReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Teacher evidence review ledger entry and updated snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkOrderMutationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/work-orders/{workOrderId}/closure": {
+      "post": {
+        "operationId": "closeWorkOrder",
+        "summary": "Teacher accepts or returns a completed learner return loop.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/WorkOrderIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkOrderClosureRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Teacher closure decision, updated work order and snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkOrderMutationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid closure decision or incomplete student return"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/learners/{learnerHash}/diagnosis": {
+      "get": {
+        "operationId": "readLearnerDiagnosis",
+        "summary": "Read diagnosis card for a pseudonymous learner.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LearnerHashPath"
+          },
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Diagnosis card",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosisResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/learners/{learnerHash}/profile": {
+      "get": {
+        "operationId": "readLearnerProfile",
+        "summary": "Read a longitudinal value-added profile for a pseudonymous learner.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LearnerHashPath"
+          },
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Learner value-added profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearnerProfileResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/interventions/rank": {
+      "post": {
+        "operationId": "rankInterventions",
+        "summary": "Rank intervention candidates with the SafeVOI policy gate.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterventionRankRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ranked and blocked intervention actions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterventionRankResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/integrations/github/import": {
+      "post": {
+        "operationId": "importGithubCiEvidence",
+        "summary": "Import pseudonymous GitHub PR and CI evidence into a learning work order.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GithubImportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created or deduplicated work order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GithubImportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/integrations/github/batch-import": {
+      "post": {
+        "operationId": "batchImportGithubCiEvidence",
+        "summary": "Import multiple pseudonymous GitHub PR and CI evidence rows into learning work orders.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GithubBatchImportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created or skipped batch work orders and updated teacher snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GithubBatchImportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/integrations/github/status": {
+      "get": {
+        "operationId": "readGithubIntegrationStatus",
+        "summary": "Read recent GitHub intake health for a course.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recent GitHub intake status and troubleshooting events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GithubIntegrationStatusResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/review/tickets": {
+      "post": {
+        "operationId": "createReviewTicket",
+        "summary": "Create a teacher review gate ticket.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewTicketCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Teacher review ticket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewTicketResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "get": {
+        "operationId": "listReviewTickets",
+        "summary": "Read teacher review gate tickets.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          },
+          {
+            "$ref": "#/components/parameters/LearnerHash"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Teacher review ticket list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewTicketListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/ledgers/import": {
+      "post": {
+        "operationId": "importEvidenceLedger",
+        "summary": "Import a pseudonymous evidence ledger and merge by event id.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LedgerImportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ledger import result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerImportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/exports/ledger": {
+      "post": {
+        "operationId": "exportEvidenceLedger",
+        "summary": "Export the redacted evidence ledger package for teacher review or institutional audit.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LedgerExportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Evidence ledger export payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerExportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/privacy/audit": {
+      "get": {
+        "operationId": "readPrivacyAudit",
+        "summary": "Read privacy and role-boundary audit summary.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Privacy audit summary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivacyAuditResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/ai/generate-scaffold": {
+      "post": {
+        "operationId": "generateScaffold",
+        "summary": "Generate governed, evidence-grounded scaffold help through the LLM Gateway.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateScaffoldRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Governed LLM or deterministic fallback response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateScaffoldResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          },
+          "503": {
+            "$ref": "#/components/responses/ModelUnavailable"
+          }
+        }
+      }
+    },
+    "/api/auth/token": {
+      "post": {
+        "operationId": "issueAuthToken",
+        "summary": "Issue a short-lived scoped access token for a teacher, student return link or read-only inspector.",
+        "security": [
+          {
+            "SepathBearer": []
+          },
+          {
+            "SepathTokenIssuer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Short-lived scoped token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          },
+          "503": {
+            "$ref": "#/components/responses/NotReady"
+          }
+        }
+      }
+    },
+    "/api/auth/teacher-login": {
+      "post": {
+        "operationId": "teacherAccessCodeLogin",
+        "summary": "Exchange a server-side teacher access code for a short-lived teacher token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeacherAccessLoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Short-lived teacher token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          },
+          "503": {
+            "$ref": "#/components/responses/NotReady"
+          }
+        }
+      }
+    },
+    "/api/auth/session": {
+      "get": {
+        "operationId": "readAuthSession",
+        "summary": "Read current actor role, course scope, capabilities and safety boundaries.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current session and capabilities",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/course/settings": {
+      "get": {
+        "operationId": "readCourseSettings",
+        "summary": "Read saved course, repository, CI provider and privacy-boundary settings.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course settings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseSettingsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "saveCourseSettings",
+        "summary": "Save teacher-managed course and repository settings without client API URL or protected identity fields.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseSettingsSaveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved course settings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseSettingsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/launch": {
+      "post": {
+        "operationId": "launchCoursePilot",
+        "summary": "Initialize a real course pilot by saving settings, saving a pseudonymous roster and creating first-round candidate diagnosis work orders.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseLaunchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Course pilot launch result with generated work orders and the updated teacher snapshot.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseLaunchResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/course/roster": {
+      "get": {
+        "operationId": "readCourseRoster",
+        "summary": "Read the pseudonymous course roster used for teacher batch diagnosis.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pseudonymous course roster",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseRosterResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "operationId": "saveCourseRoster",
+        "summary": "Save a pseudonymous class roster without real names, email addresses, raw logs or tokens.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseRosterWriteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved pseudonymous course roster",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseRosterResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/webhooks/github/ci": {
+      "post": {
+        "operationId": "receiveGithubCiWebhook",
+        "summary": "Receive a signed redacted GitHub CI event and create a diagnosis-stage work order for teacher review.",
+        "parameters": [
+          {
+            "name": "x-hub-signature-256",
+            "in": "header",
+            "required": false,
+            "description": "Recommended GitHub HMAC-SHA256 signature over the raw JSON body, formatted as sha256=<hex>.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-github-delivery",
+            "in": "header",
+            "required": false,
+            "description": "GitHub delivery ID used for audit and troubleshooting.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-github-event",
+            "in": "header",
+            "required": false,
+            "description": "GitHub event name, such as workflow_run or pull_request.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-sepath-webhook-token",
+            "in": "header",
+            "required": false,
+            "description": "Legacy shared-token fallback for existing SE-Path Actions snippets. Prefer x-hub-signature-256 for production pilots.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GithubWebhookRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Imported work order from webhook",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GithubImportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          }
+        }
+      }
+    },
+    "/api/agent/conversation": {
+      "get": {
+        "operationId": "readTeachingAgentConversation",
+        "summary": "Read the teacher assistant conversation and server-built evidence context.",
+        "description": "Returns the latest scoped conversation. The server, not the browser, assembles pseudonymous work-order evidence for grounding.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/TenantId"
+          },
+          {
+            "$ref": "#/components/parameters/CourseId"
+          },
+          {
+            "name": "workOrderId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "description": "When omitted, the assistant works at course scope and must not invent learner-level diagnosis."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Conversation history and the current evidence context",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentConversationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      },
+      "post": {
+        "operationId": "sendTeachingAgentMessage",
+        "summary": "Send a teacher question to the governed course assistant.",
+        "description": "The request contains only a teacher question and idempotency key. Evidence, student returns and prior review records are read by the backend.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Idempotent replay of a saved assistant turn",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentMessageResponse"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "New assistant turn",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "409": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "413": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "422": {
+            "$ref": "#/components/responses/PrivacyBlocked"
+          },
+          "429": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "$ref": "#/components/responses/NotReady"
+          }
+        }
+      }
+    },
+    "/api/agent/conversation/draft": {
+      "post": {
+        "operationId": "prepareTeachingAgentDraft",
+        "summary": "Convert a grounded assistant turn into a teacher-editable task draft.",
+        "description": "Prepares a draft only. It never publishes a student task, closes a work order, changes scores or writes a final evaluation.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentDraftPrepareRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Teacher-editable draft prepared from the selected assistant turn",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentDraftPrepareResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "409": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "503": {
+            "$ref": "#/components/responses/NotReady"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "SepathBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "SEPATH-HMAC"
+      },
+      "SepathTokenIssuer": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-sepath-token-issuer-secret",
+        "description": "Server-side issuer credential used only by trusted deployment tooling."
+      }
+    },
+    "parameters": {
+      "TenantId": {
+        "name": "tenantId",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/TenantId"
+        }
+      },
+      "CourseId": {
+        "name": "courseId",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/CourseId"
+        }
+      },
+      "ReturnToken": {
+        "name": "returnToken",
+        "in": "query",
+        "required": false,
+        "description": "Teacher-issued student return token. It only opens the scoped student return view after a teacher review decision exists.",
+        "schema": {
+          "type": "string",
+          "pattern": "^return_[A-Za-z0-9_-]{12,}$"
+        }
+      },
+      "LearnerHash": {
+        "name": "learnerHash",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/LearnerHash"
+        }
+      },
+      "LearnerHashPath": {
+        "name": "learnerHash",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/LearnerHash"
+        }
+      },
+      "WorkOrderIdPath": {
+        "name": "workOrderId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 4
+        }
+      },
+      "Limit": {
+        "name": "limit",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 50
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "Missing, malformed, expired or invalid SE-Path token",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "Role or learner scope is not allowed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "Request shape or required fields are invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "PrivacyBlocked": {
+        "description": "Protected field or non-pseudonymous learner identifier was blocked",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PrivacyBlockedResponse"
+            }
+          }
+        }
+      },
+      "ModelUnavailable": {
+        "description": "Model is unavailable and deterministic fallback was explicitly disabled",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "NotReady": {
+        "description": "Cloud runtime is missing required configuration",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "TenantId": {
+        "type": "string",
+        "minLength": 3,
+        "pattern": "^[a-z0-9][a-z0-9_-]{2,80}$"
+      },
+      "CourseId": {
+        "type": "string",
+        "minLength": 3,
+        "pattern": "^[a-z0-9][a-z0-9_-]{2,100}$"
+      },
+      "LearnerHash": {
+        "type": "string",
+        "minLength": 6,
+        "pattern": "^((stu_|learner_|anon_|hash_|reviewer_)[A-Za-z0-9_-]{3,}|(?=.*[a-fA-F])[a-fA-F0-9]{16,})$"
+      },
+      "Runtime": {
+        "type": "string",
+        "enum": [
+          "sepath-edge-api.v1",
+          "sepath-inference-gateway.v1"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "error"
+        ],
+        "properties": {
+          "runtime": {
+            "$ref": "#/components/schemas/Runtime"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "PrivacyBlockedResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          {
+            "type": "object",
+            "required": [
+              "findings"
+            ],
+            "properties": {
+              "findings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "HealthResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "status",
+          "endpoints",
+          "storageMode"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "status": {
+            "type": "string"
+          },
+          "readiness": {
+            "type": "object",
+            "required": [
+              "status",
+              "cloudRuntime",
+              "checks"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "ready",
+                  "not_ready"
+                ]
+              },
+              "cloudRuntime": {
+                "type": "boolean"
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "key",
+                    "status"
+                  ],
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "detail": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              }
+            },
+            "additionalProperties": true
+          },
+          "privacyMode": {
+            "type": "string"
+          },
+          "authMode": {
+            "type": "string"
+          },
+          "endpoints": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "storageMode": {
+            "type": "string"
+          }
+        }
+      },
+      "EvidenceEventCreateRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "learnerHash",
+          "source",
+          "eventType",
+          "externalId",
+          "payload"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learnerHash": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LearnerHash"
+              },
+              {
+                "const": ""
+              }
+            ]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "git",
+              "ci",
+              "lms",
+              "chat",
+              "reflection",
+              "teacher"
+            ]
+          },
+          "eventType": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "idempotencyKey": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EvidenceEventCreateResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "eventId",
+          "traceId",
+          "qualityGate"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "traceId": {
+            "type": "string"
+          },
+          "deduped": {
+            "type": "boolean"
+          },
+          "stored": {
+            "type": "boolean"
+          },
+          "qualityGate": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "EvidenceEventListResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "count",
+          "events"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "storageMode": {
+            "type": "string"
+          }
+        }
+      },
+      "StudentReturnState": {
+        "type": "object",
+        "required": [
+          "scaffoldReceived",
+          "evidenceSubmitted",
+          "reflectionSubmitted"
+        ],
+        "properties": {
+          "scaffoldReceived": {
+            "type": "boolean"
+          },
+          "evidenceSubmitted": {
+            "type": "boolean"
+          },
+          "reflectionSubmitted": {
+            "type": "boolean"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of teacher return-for-evidence cycles already requested."
+          },
+          "returnedAt": {
+            "type": "string",
+            "nullable": true
+          },
+          "returnReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "returnRequestedBy": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterventionTaskPackage": {
+        "type": "object",
+        "required": [
+          "id",
+          "workOrderId",
+          "title",
+          "status",
+          "objective",
+          "safeBoundary",
+          "steps",
+          "evidenceToSubmit",
+          "rubricCheckpoints",
+          "dueHint",
+          "teacherNote",
+          "createdBy",
+          "createdAt",
+          "sourceEvidenceIds",
+          "valueAddedFocus"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "workOrderId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "ready_for_student",
+              "returned_for_evidence",
+              "human_talk"
+            ]
+          },
+          "objective": {
+            "type": "string"
+          },
+          "safeBoundary": {
+            "type": "string"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidenceToSubmit": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rubricCheckpoints": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dueHint": {
+            "type": "string"
+          },
+          "teacherNote": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "sourceEvidenceIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "valueAddedFocus": {
+            "type": "string"
+          },
+          "teacherEdited": {
+            "type": "boolean",
+            "description": "Whether the package was published from a teacher-confirmed editable draft."
+          },
+          "draftVersion": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterventionPackageDraft": {
+        "type": "object",
+        "description": "Teacher-editable package draft. Empty fields fall back to the safe system proposal; direct-answer boundaries are re-applied by the server.",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "objective": {
+            "type": "string",
+            "maxLength": 360
+          },
+          "safeBoundary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "steps": {
+            "type": "array",
+            "maxItems": 8,
+            "items": {
+              "type": "string",
+              "maxLength": 220
+            }
+          },
+          "evidenceToSubmit": {
+            "type": "array",
+            "maxItems": 10,
+            "items": {
+              "type": "string",
+              "maxLength": 120
+            }
+          },
+          "rubricCheckpoints": {
+            "type": "array",
+            "maxItems": 8,
+            "items": {
+              "type": "string",
+              "maxLength": 180
+            }
+          },
+          "dueHint": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "teacherNote": {
+            "type": "string",
+            "maxLength": 1200
+          }
+        },
+        "additionalProperties": false
+      },
+      "ValueAddedSnapshot": {
+        "type": "object",
+        "required": [
+          "id",
+          "workOrderId",
+          "createdAt",
+          "dimension",
+          "baseline",
+          "expected",
+          "observed",
+          "uplift",
+          "remainingGap",
+          "evidenceCoverage",
+          "uncertainty",
+          "teacherDecision",
+          "teacherNote",
+          "basisEvidenceIds",
+          "claim",
+          "boundary",
+          "nextTeachingAction"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "workOrderId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "dimension": {
+            "type": "string"
+          },
+          "baseline": {
+            "type": "integer"
+          },
+          "expected": {
+            "type": "integer"
+          },
+          "observed": {
+            "type": "integer"
+          },
+          "uplift": {
+            "type": "integer"
+          },
+          "remainingGap": {
+            "type": "integer"
+          },
+          "evidenceCoverage": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "uncertainty": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "teacherDecision": {
+            "type": "string",
+            "enum": [
+              "accept"
+            ]
+          },
+          "teacherNote": {
+            "type": "string"
+          },
+          "basisEvidenceIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "claim": {
+            "type": "string"
+          },
+          "boundary": {
+            "type": "string"
+          },
+          "nextTeachingAction": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LearningWorkOrder": {
+        "type": "object",
+        "required": [
+          "id",
+          "tenantId",
+          "courseId",
+          "learnerHash",
+          "trigger",
+          "risk",
+          "status",
+          "evidenceCoverage",
+          "diagnosis",
+          "safeVoiRecommendation"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "learnerAlias": {
+            "type": "string"
+          },
+          "trigger": {
+            "type": "string"
+          },
+          "risk": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "diagnosis",
+              "evidence",
+              "guardrail",
+              "intervention",
+              "review",
+              "closed"
+            ]
+          },
+          "evidenceCoverage": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "diagnosis": {
+            "type": "string"
+          },
+          "safeVoiRecommendation": {
+            "type": "string"
+          },
+          "returnToken": {
+            "type": "string",
+            "description": "Teacher-visible student return token. Reviewer, student and ledger-export responses remove this field."
+          },
+          "interventionPackage": {
+            "$ref": "#/components/schemas/InterventionTaskPackage"
+          },
+          "valueAddedSnapshot": {
+            "$ref": "#/components/schemas/ValueAddedSnapshot"
+          }
+        },
+        "additionalProperties": true
+      },
+      "EvidenceLedgerEntry": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "time",
+          "actor",
+          "title",
+          "source",
+          "detail"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          },
+          "actor": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "traceId": {
+            "type": "string"
+          },
+          "valueAddedSnapshotId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "TeacherWorkbenchSnapshot": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "selectedId",
+          "workOrders",
+          "ledger",
+          "studentReturn",
+          "updatedAt"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "selectedId": {
+            "type": "string"
+          },
+          "workOrders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningWorkOrder"
+            }
+          },
+          "ledger": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/EvidenceLedgerEntry"
+              }
+            }
+          },
+          "studentReturn": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/StudentReturnState"
+            }
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "WorkOrderListResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "count",
+          "workOrders"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "workOrders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningWorkOrder"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "WorkOrderDetailResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "workOrder",
+          "ledger",
+          "studentReturn"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "workOrder": {
+            "$ref": "#/components/schemas/LearningWorkOrder"
+          },
+          "ledger": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "studentReturn": {
+            "$ref": "#/components/schemas/StudentReturnState"
+          }
+        },
+        "additionalProperties": true
+      },
+      "WorkOrderReviewRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "decision"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "approve",
+              "returnEvidence",
+              "humanTalk"
+            ]
+          },
+          "teacherNote": {
+            "type": "string",
+            "maxLength": 1200
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkOrderClosureRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "decision"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "returnEvidence"
+            ]
+          },
+          "teacherNote": {
+            "type": "string",
+            "maxLength": 1200
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterventionPackageRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "teacherNote": {
+            "type": "string",
+            "maxLength": 1200
+          },
+          "packageDraft": {
+            "$ref": "#/components/schemas/InterventionPackageDraft"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseMicroTaskPackage": {
+        "type": "object",
+        "description": "Teacher-approved class micro-task package generated from shared evidence gaps. It is published into target work-order ledgers and keeps AI suggestions inside a formative, non-direct-answer boundary.",
+        "required": [
+          "id",
+          "sourceGap",
+          "targetWorkOrderIds"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "published"
+            ]
+          },
+          "generatedAt": {
+            "type": "string"
+          },
+          "publishedAt": {
+            "type": "string"
+          },
+          "publishedBy": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseName": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "courseClass": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "sourceGap": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "objective": {
+            "type": "string",
+            "maxLength": 360
+          },
+          "affectedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "targetLearners": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            }
+          },
+          "targetWorkOrderIds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            }
+          },
+          "steps": {
+            "type": "array",
+            "maxItems": 8,
+            "items": {
+              "type": "string",
+              "maxLength": 220
+            }
+          },
+          "evidenceToSubmit": {
+            "type": "array",
+            "maxItems": 10,
+            "items": {
+              "type": "string",
+              "maxLength": 120
+            }
+          },
+          "rubricCheckpoints": {
+            "type": "array",
+            "maxItems": 8,
+            "items": {
+              "type": "string",
+              "maxLength": 180
+            }
+          },
+          "safeBoundary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "dueHint": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "teacherAction": {
+            "type": "string",
+            "maxLength": 180
+          },
+          "confidenceNote": {
+            "type": "string",
+            "maxLength": 240
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseMicroTaskPackageRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "package"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "package": {
+            "$ref": "#/components/schemas/CourseMicroTaskPackage"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseMicroTaskPackageResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "package",
+          "publishedCount",
+          "skippedCount",
+          "ledgerEntries",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "package": {
+            "$ref": "#/components/schemas/CourseMicroTaskPackage"
+          },
+          "publishedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ledgerEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseTeachingImprovementItem": {
+        "type": "object",
+        "description": "One teacher-confirmed next-round teaching improvement action derived from course intervention review or repeated evidence gaps.",
+        "required": [
+          "id",
+          "focus",
+          "issue",
+          "action",
+          "targetWorkOrderIds"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "sourceTraceId": {
+            "type": "string",
+            "maxLength": 180
+          },
+          "focus": {
+            "type": "string",
+            "maxLength": 140
+          },
+          "issue": {
+            "type": "string",
+            "maxLength": 360
+          },
+          "action": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "acceptanceEvidence": {
+            "type": "array",
+            "maxItems": 8,
+            "items": {
+              "type": "string",
+              "maxLength": 160
+            }
+          },
+          "targetWorkOrderIds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 80,
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            }
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementPlan": {
+        "type": "object",
+        "description": "Teacher-confirmed course-level improvement plan. It records formative teaching adjustments only and must not be used for ranking, punishment or automatic high-risk decisions.",
+        "required": [
+          "id",
+          "items",
+          "boundary"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "product": {
+            "type": "string"
+          },
+          "exportType": {
+            "type": "string",
+            "const": "course_teaching_improvement_plan"
+          },
+          "generatedAt": {
+            "type": "string"
+          },
+          "publishedAt": {
+            "type": "string"
+          },
+          "publishedBy": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "published"
+            ]
+          },
+          "courseClass": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseName": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "repository": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "sourceSummary": {
+            "type": "string",
+            "maxLength": 260
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "$ref": "#/components/schemas/CourseTeachingImprovementItem"
+            }
+          },
+          "boundary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "markdown": {
+            "type": "string",
+            "maxLength": 8000
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementPlanRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "plan"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "plan": {
+            "$ref": "#/components/schemas/CourseTeachingImprovementPlan"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementPlanResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "plan",
+          "publishedCount",
+          "skippedCount",
+          "ledgerEntries",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "plan": {
+            "$ref": "#/components/schemas/CourseTeachingImprovementPlan"
+          },
+          "publishedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ledgerEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseTeachingImprovementExecutionReceipt": {
+        "type": "object",
+        "description": "Teacher execution receipt for a previously published course-level teaching improvement plan. It proves course action execution only and must not be used for learner ranking, punishment or automatic evaluation.",
+        "required": [
+          "id",
+          "planId",
+          "targetWorkOrderIds",
+          "boundary"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "product": {
+            "type": "string"
+          },
+          "exportType": {
+            "type": "string",
+            "const": "course_teaching_improvement_execution_receipt"
+          },
+          "planId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "executedAt": {
+            "type": "string"
+          },
+          "executedBy": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseClass": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseName": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "repository": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "classSession": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "type": "string",
+              "maxLength": 160
+            }
+          },
+          "targetWorkOrderIds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 80,
+            "items": {
+              "type": "string"
+            }
+          },
+          "boundary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "markdown": {
+            "type": "string",
+            "maxLength": 8000
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementExecutionRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "receipt"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "receipt": {
+            "$ref": "#/components/schemas/CourseTeachingImprovementExecutionReceipt"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementExecutionResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "receipt",
+          "recordedCount",
+          "skippedCount",
+          "ledgerEntries",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "receipt": {
+            "$ref": "#/components/schemas/CourseTeachingImprovementExecutionReceipt"
+          },
+          "recordedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ledgerEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseTeachingImprovementFollowupIndicator": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "before",
+          "expected",
+          "evidence",
+          "interpretation",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "before": {
+            "type": "string",
+            "maxLength": 220
+          },
+          "expected": {
+            "type": "string",
+            "maxLength": 240
+          },
+          "evidence": {
+            "type": "string",
+            "maxLength": 220
+          },
+          "interpretation": {
+            "type": "string",
+            "maxLength": 260
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "watch",
+              "improved",
+              "needs_more_evidence"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementFollowupSample": {
+        "type": "object",
+        "description": "Next-round sampling plan after a teacher-executed teaching improvement. It records observation criteria only and must not be treated as causal proof or automatic learner evaluation.",
+        "required": [
+          "id",
+          "planId",
+          "receiptId",
+          "targetWorkOrderIds",
+          "indicators",
+          "boundary"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "product": {
+            "type": "string"
+          },
+          "exportType": {
+            "type": "string",
+            "const": "course_teaching_improvement_followup_sample"
+          },
+          "planId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "receiptId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "sampledAt": {
+            "type": "string"
+          },
+          "sampledBy": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseClass": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseName": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "repository": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "observationWindow": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "indicators": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "$ref": "#/components/schemas/CourseTeachingImprovementFollowupIndicator"
+            }
+          },
+          "targetWorkOrderIds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 80,
+            "items": {
+              "type": "string"
+            }
+          },
+          "boundary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "markdown": {
+            "type": "string",
+            "maxLength": 8000
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementFollowupRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "sample"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "sample": {
+            "$ref": "#/components/schemas/CourseTeachingImprovementFollowupSample"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementFollowupResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "sample",
+          "recordedCount",
+          "skippedCount",
+          "ledgerEntries",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "sample": {
+            "$ref": "#/components/schemas/CourseTeachingImprovementFollowupSample"
+          },
+          "recordedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ledgerEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseTeachingImprovementFollowupResultFinding": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "expected",
+          "observed",
+          "evidence",
+          "interpretation",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "expected": {
+            "type": "string",
+            "maxLength": 240
+          },
+          "observed": {
+            "type": "string",
+            "maxLength": 240
+          },
+          "evidence": {
+            "type": "string",
+            "maxLength": 240
+          },
+          "interpretation": {
+            "type": "string",
+            "maxLength": 320
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "observed_improvement",
+              "no_clear_change",
+              "needs_more_evidence"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementFollowupResult": {
+        "type": "object",
+        "description": "Collected next-round observation results after a sampling plan. It records evidence changes only and must not be treated as causal proof or automatic learner evaluation.",
+        "required": [
+          "id",
+          "planId",
+          "receiptId",
+          "sampleId",
+          "targetWorkOrderIds",
+          "findings",
+          "nextAction",
+          "boundary"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "product": {
+            "type": "string"
+          },
+          "exportType": {
+            "type": "string",
+            "const": "course_teaching_improvement_followup_result"
+          },
+          "planId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "receiptId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "sampleId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "collectedAt": {
+            "type": "string"
+          },
+          "collectedBy": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseClass": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseName": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "repository": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "observationWindow": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 520
+          },
+          "findings": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "$ref": "#/components/schemas/CourseTeachingImprovementFollowupResultFinding"
+            }
+          },
+          "targetWorkOrderIds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 80,
+            "items": {
+              "type": "string"
+            }
+          },
+          "nextAction": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "boundary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "markdown": {
+            "type": "string",
+            "maxLength": 10000
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementFollowupResultRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "result"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "result": {
+            "$ref": "#/components/schemas/CourseTeachingImprovementFollowupResult"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseTeachingImprovementFollowupResultResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "result",
+          "recordedCount",
+          "skippedCount",
+          "ledgerEntries",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "result": {
+            "$ref": "#/components/schemas/CourseTeachingImprovementFollowupResult"
+          },
+          "recordedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ledgerEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseResourceRevisionChange": {
+        "type": "object",
+        "required": [
+          "id",
+          "area",
+          "title",
+          "reason",
+          "implementation",
+          "owner",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "area": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 140
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 320
+          },
+          "implementation": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "owner": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "needs_review",
+              "blocked"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceRevisionTicket": {
+        "type": "object",
+        "description": "Teacher-confirmed course resource revision ticket derived from follow-up observations. It updates teaching resources and evidence criteria only; it does not rank, punish or automatically evaluate learners.",
+        "required": [
+          "id",
+          "sourceResultId",
+          "sampleId",
+          "planId",
+          "resourceTitle",
+          "versionFrom",
+          "versionTo",
+          "reason",
+          "changes",
+          "acceptanceChecks",
+          "targetWorkOrderIds",
+          "boundary"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "product": {
+            "type": "string"
+          },
+          "exportType": {
+            "type": "string",
+            "const": "course_resource_revision_ticket"
+          },
+          "sourceResultId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "sampleId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "planId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseClass": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseName": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "repository": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "resourceTitle": {
+            "type": "string",
+            "maxLength": 180
+          },
+          "versionFrom": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "versionTo": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 600
+          },
+          "changes": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "$ref": "#/components/schemas/CourseResourceRevisionChange"
+            }
+          },
+          "acceptanceChecks": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "type": "string",
+              "maxLength": 220
+            }
+          },
+          "targetWorkOrderIds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 80,
+            "items": {
+              "type": "string"
+            }
+          },
+          "boundary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "markdown": {
+            "type": "string",
+            "maxLength": 12000
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceRevisionRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "ticket"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "ticket": {
+            "$ref": "#/components/schemas/CourseResourceRevisionTicket"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceRevisionResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "ticket",
+          "recordedCount",
+          "skippedCount",
+          "ledgerEntries",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "ticket": {
+            "$ref": "#/components/schemas/CourseResourceRevisionTicket"
+          },
+          "recordedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ledgerEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseResourceReleaseCheck": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "evidence",
+          "owner",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 140
+          },
+          "evidence": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "owner": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "passed",
+              "watch",
+              "blocked"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceReleaseReceipt": {
+        "type": "object",
+        "description": "Teacher-confirmed release receipt proving a revised course resource version was published to course channels. It records delivery, checks and rollback only; it does not claim causal teaching impact, rank, punish or automatically evaluate learners.",
+        "required": [
+          "id",
+          "revisionTicketId",
+          "sourceResultId",
+          "sampleId",
+          "resourceTitle",
+          "releasedVersion",
+          "releaseChannel",
+          "releaseScope",
+          "assets",
+          "checks",
+          "rollbackPlan",
+          "targetWorkOrderIds",
+          "boundary"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "product": {
+            "type": "string"
+          },
+          "exportType": {
+            "type": "string",
+            "const": "course_resource_release_receipt"
+          },
+          "revisionTicketId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "sourceResultId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "sampleId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "releasedAt": {
+            "type": "string"
+          },
+          "releasedBy": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseClass": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseName": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "repository": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "resourceTitle": {
+            "type": "string",
+            "maxLength": 180
+          },
+          "releasedVersion": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "releaseChannel": {
+            "type": "string",
+            "maxLength": 180
+          },
+          "releaseScope": {
+            "type": "string",
+            "maxLength": 180
+          },
+          "assets": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 12,
+            "items": {
+              "type": "string",
+              "maxLength": 180
+            }
+          },
+          "checks": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "$ref": "#/components/schemas/CourseResourceReleaseCheck"
+            }
+          },
+          "rollbackPlan": {
+            "type": "string",
+            "maxLength": 520
+          },
+          "targetWorkOrderIds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 80,
+            "items": {
+              "type": "string"
+            }
+          },
+          "boundary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "markdown": {
+            "type": "string",
+            "maxLength": 12000
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceReleaseRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "receipt"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "receipt": {
+            "$ref": "#/components/schemas/CourseResourceReleaseReceipt"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceReleaseResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "receipt",
+          "recordedCount",
+          "skippedCount",
+          "ledgerEntries",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "receipt": {
+            "$ref": "#/components/schemas/CourseResourceReleaseReceipt"
+          },
+          "recordedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ledgerEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseResourceUsageSignal": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "value",
+          "evidence",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "evidence": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "confirmed",
+              "watch",
+              "needs_review"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceUsageReceipt": {
+        "type": "object",
+        "description": "Teacher-confirmed usage receipt for a revised course resource. It records usage signals, evidence return and review readiness only; it is not causal proof, learner ranking, punishment or automatic evaluation.",
+        "required": [
+          "id",
+          "releaseReceiptId",
+          "revisionTicketId",
+          "sourceResultId",
+          "sampleId",
+          "releasedVersion",
+          "usageWindow",
+          "activeLearners",
+          "submittedEvidenceCount",
+          "teacherReviewReadyCount",
+          "medianCoverageAfter",
+          "signals",
+          "nextAction",
+          "targetWorkOrderIds",
+          "boundary"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "product": {
+            "type": "string"
+          },
+          "exportType": {
+            "type": "string",
+            "const": "course_resource_usage_receipt"
+          },
+          "releaseReceiptId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "revisionTicketId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "sourceResultId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "sampleId": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "observedAt": {
+            "type": "string"
+          },
+          "observedBy": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseClass": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "courseName": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "repository": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "releasedVersion": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "usageWindow": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "activeLearners": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "submittedEvidenceCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "teacherReviewReadyCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "medianCoverageAfter": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "signals": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "$ref": "#/components/schemas/CourseResourceUsageSignal"
+            }
+          },
+          "nextAction": {
+            "type": "string",
+            "maxLength": 520
+          },
+          "targetWorkOrderIds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 80,
+            "items": {
+              "type": "string"
+            }
+          },
+          "boundary": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "markdown": {
+            "type": "string",
+            "maxLength": 12000
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceUsageRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "receipt"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "receipt": {
+            "$ref": "#/components/schemas/CourseResourceUsageReceipt"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceUsageResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "receipt",
+          "recordedCount",
+          "skippedCount",
+          "ledgerEntries",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "receipt": {
+            "$ref": "#/components/schemas/CourseResourceUsageReceipt"
+          },
+          "recordedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ledgerEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseResourceUsageReminder": {
+        "type": "object",
+        "required": [
+          "usageReceiptId",
+          "traceId",
+          "title",
+          "targetWorkOrderIds"
+        ],
+        "properties": {
+          "usageReceiptId": {
+            "type": "string",
+            "description": "The teacher-confirmed resource usage receipt id that must already be present in the ledger."
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Stable reminder trace id used to prevent duplicate reminder ledger entries."
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "targetWorkOrderIds": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 80,
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceUsageReminderRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "reminder"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "reminder": {
+            "$ref": "#/components/schemas/CourseResourceUsageReminder"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseResourceUsageReminderResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "remindedCount",
+          "skippedCount",
+          "ledgerEntries",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "remindedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ledgerEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseMicroTaskReminderRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "reminder"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "reminder": {
+            "type": "object",
+            "required": [
+              "traceId",
+              "targetWorkOrderIds"
+            ],
+            "properties": {
+              "traceId": {
+                "type": "string",
+                "description": "The course micro-task trace to remind against."
+              },
+              "title": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "note": {
+                "type": "string",
+                "maxLength": 260
+              },
+              "targetWorkOrderIds": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 50,
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseMicroTaskReminderResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "remindedCount",
+          "skippedCount",
+          "ledgerEntries",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "remindedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ledgerEntries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "StudentReturnRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "learnerHash",
+          "step"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "step": {
+            "type": "string",
+            "enum": [
+              "scaffoldReceived",
+              "evidenceSubmitted",
+              "reflectionSubmitted"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "artifact": {
+            "$ref": "#/components/schemas/StudentReturnArtifact"
+          },
+          "returnToken": {
+            "type": "string",
+            "description": "Teacher-issued token required for link-based student return when no verified student session is present."
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudentReturnArtifact": {
+        "type": "object",
+        "description": "Structured student evidence package for teacher review. It records evidence and reflection inputs, not directly submit-ready answers.",
+        "properties": {
+          "failureSymptom": {
+            "type": "string",
+            "maxLength": 800
+          },
+          "minimalCase": {
+            "type": "string",
+            "maxLength": 800
+          },
+          "verificationRecord": {
+            "type": "string",
+            "maxLength": 800
+          },
+          "evidenceLink": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "integrityNote": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "additionalProperties": false
+      },
+      "TeacherEvidenceReviewRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "review"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "review": {
+            "$ref": "#/components/schemas/TeacherEvidenceReviewPayload"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TeacherEvidenceReviewPayload": {
+        "type": "object",
+        "description": "Teacher-side evidence review saved before final acceptance. AI can only provide candidates; the teacher records the review decision.",
+        "required": [
+          "sourceLedgerEntryId",
+          "summary",
+          "items"
+        ],
+        "properties": {
+          "sourceLedgerEntryId": {
+            "type": "string",
+            "description": "Ledger id of the learner evidence return being reviewed."
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 260
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "items": {
+              "$ref": "#/components/schemas/TeacherEvidenceReviewItem"
+            }
+          },
+          "teacherNote": {
+            "type": "string",
+            "maxLength": 220
+          }
+        },
+        "additionalProperties": false
+      },
+      "TeacherEvidenceReviewItem": {
+        "type": "object",
+        "required": [
+          "key",
+          "label",
+          "value",
+          "status"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 800
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "accepted",
+              "needs_evidence",
+              "rejected"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "required": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkOrderMutationResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "workOrder",
+          "ledgerEntry",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "workOrder": {
+            "$ref": "#/components/schemas/LearningWorkOrder"
+          },
+          "studentReturn": {
+            "$ref": "#/components/schemas/StudentReturnState"
+          },
+          "package": {
+            "$ref": "#/components/schemas/InterventionTaskPackage"
+          },
+          "ledgerEntry": {
+            "$ref": "#/components/schemas/EvidenceLedgerEntry"
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          }
+        },
+        "additionalProperties": true
+      },
+      "LearnerProfileResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "profile"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "profile": {
+            "type": "object",
+            "required": [
+              "learnerHash",
+              "workOrderCount",
+              "averageCoverage",
+              "boundary"
+            ],
+            "properties": {
+              "learnerHash": {
+                "$ref": "#/components/schemas/LearnerHash"
+              },
+              "workOrderCount": {
+                "type": "integer"
+              },
+              "averageCoverage": {
+                "type": "integer"
+              },
+              "valueAddedSnapshots": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ValueAddedSnapshot"
+                }
+              },
+              "boundary": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      },
+      "GithubImportRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "repository",
+          "prUrl",
+          "ciRunUrl"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "learnerAlias": {
+            "type": "string",
+            "description": "Optional pseudonymous display label, not a real student identifier."
+          },
+          "repository": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "prUrl": {
+            "type": "string"
+          },
+          "ciRunUrl": {
+            "type": "string"
+          },
+          "ciProvider": {
+            "type": "string"
+          },
+          "ciLogSummary": {
+            "type": "string",
+            "description": "Redacted summary only; raw logs are forbidden by x-sepath-boundaries."
+          },
+          "courseClass": {
+            "type": "string"
+          },
+          "courseName": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "idempotencyKey": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GithubBatchImportEvent": {
+        "type": "object",
+        "required": [
+          "learnerHash",
+          "repository",
+          "prUrl",
+          "ciRunUrl"
+        ],
+        "properties": {
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "learnerAlias": {
+            "type": "string",
+            "description": "Optional pseudonymous display label, not a real student identifier."
+          },
+          "repository": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "prUrl": {
+            "type": "string"
+          },
+          "ciRunUrl": {
+            "type": "string"
+          },
+          "ciProvider": {
+            "type": "string"
+          },
+          "ciLogSummary": {
+            "type": "string",
+            "description": "Redacted summary only; raw logs are forbidden by x-sepath-boundaries."
+          },
+          "trigger": {
+            "type": "string"
+          },
+          "eventDate": {
+            "type": "string"
+          },
+          "courseClass": {
+            "type": "string"
+          },
+          "courseName": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "idempotencyKey": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GithubBatchImportRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "importedEvents"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "idempotencyKey": {
+            "type": "string"
+          },
+          "importedEvents": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 40,
+            "items": {
+              "$ref": "#/components/schemas/GithubBatchImportEvent"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "GithubBatchImportResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "source",
+          "batchId",
+          "createdCount",
+          "skippedCount",
+          "workOrders",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "github-ci-batch"
+            ]
+          },
+          "batchId": {
+            "type": "string"
+          },
+          "createdCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "workOrders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningWorkOrder"
+            }
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "integrationEvent": {
+            "$ref": "#/components/schemas/GithubIntegrationEvent"
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "GithubImportResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "source",
+          "deduped",
+          "workOrder",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "github-ci",
+              "github-webhook"
+            ]
+          },
+          "authMode": {
+            "type": "string",
+            "enum": [
+              "github-signature",
+              "sepath-webhook-token"
+            ],
+            "description": "Webhook authentication mode. Present for webhook imports."
+          },
+          "deliveryId": {
+            "type": "string",
+            "description": "Webhook delivery ID when supplied by the caller."
+          },
+          "githubEvent": {
+            "type": "string",
+            "description": "GitHub event header when supplied by the caller."
+          },
+          "deduped": {
+            "type": "boolean"
+          },
+          "integrationEvent": {
+            "$ref": "#/components/schemas/GithubIntegrationEvent"
+          },
+          "workOrder": {
+            "$ref": "#/components/schemas/LearningWorkOrder"
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          }
+        },
+        "additionalProperties": true
+      },
+      "GithubIntegrationEvent": {
+        "type": "object",
+        "required": [
+          "id",
+          "tenantId",
+          "courseId",
+          "provider",
+          "source",
+          "status",
+          "repository",
+          "createdCount",
+          "skippedCount",
+          "summary",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "github"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "github-ci",
+              "github-ci-batch",
+              "github-webhook"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "created",
+              "deduped",
+              "partial",
+              "blocked",
+              "failed"
+            ]
+          },
+          "authMode": {
+            "type": "string"
+          },
+          "deliveryId": {
+            "type": "string"
+          },
+          "githubEvent": {
+            "type": "string"
+          },
+          "repository": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "prUrl": {
+            "type": "string"
+          },
+          "ciRunUrl": {
+            "type": "string"
+          },
+          "workOrderId": {
+            "type": "string"
+          },
+          "workOrderIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "summary": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GithubIntegrationStatusResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "tenantId",
+          "courseId",
+          "provider",
+          "configured",
+          "summary",
+          "events"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "github"
+            ]
+          },
+          "configured": {
+            "type": "boolean"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          },
+          "summary": {
+            "type": "object",
+            "required": [
+              "health",
+              "latestStatus",
+              "successfulCount",
+              "blockedCount",
+              "workOrderCount"
+            ],
+            "properties": {
+              "health": {
+                "type": "string",
+                "enum": [
+                  "not_configured",
+                  "configured",
+                  "receiving"
+                ]
+              },
+              "latestStatus": {
+                "type": "string"
+              },
+              "lastReceivedAt": {
+                "type": "string"
+              },
+              "lastDeliveryId": {
+                "type": "string"
+              },
+              "lastAuthMode": {
+                "type": "string"
+              },
+              "successfulCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "blockedCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "workOrderCount": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GithubIntegrationEvent"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "LedgerExportRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "workOrderId"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "workOrderId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LedgerExportResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "exportType",
+          "boundary",
+          "workOrder",
+          "ledger"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "exportType": {
+            "const": "teacher_evidence_ledger"
+          },
+          "boundary": {
+            "type": "string"
+          },
+          "workOrder": {
+            "$ref": "#/components/schemas/LearningWorkOrder"
+          },
+          "ledger": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvidenceLedgerEntry"
+            }
+          },
+          "studentReturnProgress": {
+            "type": "string"
+          },
+          "studentReturnRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "studentReturnReason": {
+            "type": "string",
+            "nullable": true
+          },
+          "valueAddedSnapshot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ValueAddedSnapshot"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "DiagnosisResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "diagnosisId",
+          "blocker",
+          "confidence"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "diagnosisId": {
+            "type": "string"
+          },
+          "blocker": {
+            "type": "string"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "evidenceEventIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "InterventionRankRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "learnerHash",
+          "diagnosisId",
+          "strategyVersion",
+          "candidateActions"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "diagnosisId": {
+            "type": "string"
+          },
+          "strategyVersion": {
+            "type": "string"
+          },
+          "candidateActions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "label"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterventionRankResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "rankedActions",
+          "blockedActions",
+          "teacherReviewRequired"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "rankedActions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "blockedActions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "teacherReviewRequired": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "ReviewTicketCreateRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "learnerHash",
+          "severity",
+          "reasonCodes"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "reasonCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReviewTicketResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "ticketId",
+          "status"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "ticketId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "requiredActions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "ReviewTicketListResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "count",
+          "tickets"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "tickets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "LedgerImportRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "ledgerSha256",
+          "events"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "ledgerSha256": {
+            "type": "string",
+            "minLength": 16
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "LedgerImportResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "importedEvents",
+          "duplicateEvents",
+          "invalidEvents",
+          "mergeStatus"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "importedEvents": {
+            "type": "integer"
+          },
+          "duplicateEvents": {
+            "type": "integer"
+          },
+          "invalidEvents": {
+            "type": "integer"
+          },
+          "mergeStatus": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "PrivacyAuditResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "gate",
+          "piiFindings",
+          "blockedRequests"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "gate": {
+            "type": "string"
+          },
+          "piiFindings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "blockedRequests": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "auditEvents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "GenerateScaffoldRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "learnerHash",
+          "traceId",
+          "evidenceEventIds",
+          "knowledgeSourceIds",
+          "guardrails"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "taskId": {
+            "type": "string"
+          },
+          "traceId": {
+            "type": "string"
+          },
+          "intent": {
+            "type": "string"
+          },
+          "promptVersion": {
+            "type": "string"
+          },
+          "evidenceEventIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "knowledgeSourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "guardrails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "noKeyFallback": {
+            "type": "boolean",
+            "default": true
+          },
+          "requestedOutputSchema": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "GenerateScaffoldResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "contractVersion",
+          "mode",
+          "fallback",
+          "traceId",
+          "refusal",
+          "checklist",
+          "miniLab",
+          "evidenceToSubmit",
+          "citations",
+          "teacherReviewRequired"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-inference-gateway.v1"
+          },
+          "contractVersion": {
+            "const": "sepath-scaffold-response.v1"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "deterministic-fallback",
+              "governed-llm"
+            ]
+          },
+          "fallback": {
+            "type": "boolean"
+          },
+          "traceId": {
+            "type": "string"
+          },
+          "refusal": {
+            "type": "string"
+          },
+          "checklist": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "miniLab": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidenceToSubmit": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "citations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "teacherReviewRequired": {
+            "type": "boolean"
+          },
+          "guardrailHits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "AuthTokenRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "role"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "teacher",
+              "course_admin",
+              "student",
+              "reviewer",
+              "system"
+            ]
+          },
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "workOrderId": {
+            "type": "string",
+            "description": "Required for a scoped student return token."
+          },
+          "reviewMode": {
+            "type": "string",
+            "enum": [
+              "sandbox",
+              ""
+            ]
+          },
+          "ttlSeconds": {
+            "type": "integer",
+            "minimum": 60,
+            "maximum": 14400
+          }
+        },
+        "additionalProperties": false
+      },
+      "TeacherAccessLoginRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "accessCode"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "accessCode": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "description": "Teacher console access code verified only on the server."
+          },
+          "ttlSeconds": {
+            "type": "integer",
+            "minimum": 60,
+            "maximum": 14400
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthTokenResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "tokenType",
+          "accessToken",
+          "expiresAt",
+          "ttlSeconds",
+          "claims",
+          "storageMode"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "tokenType": {
+            "const": "Bearer"
+          },
+          "accessToken": {
+            "type": "string",
+            "description": "Short-lived HMAC token. It must not be persisted in browser localStorage."
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ttlSeconds": {
+            "type": "integer"
+          },
+          "claims": {
+            "type": "object",
+            "required": [
+              "role",
+              "tenantId",
+              "courseId",
+              "tokenScope"
+            ],
+            "properties": {
+              "role": {
+                "type": "string"
+              },
+              "tenantId": {
+                "$ref": "#/components/schemas/TenantId"
+              },
+              "courseId": {
+                "$ref": "#/components/schemas/CourseId"
+              },
+              "learnerHash": {
+                "$ref": "#/components/schemas/LearnerHash"
+              },
+              "workOrderId": {
+                "type": "string"
+              },
+              "reviewMode": {
+                "type": "string"
+              },
+              "tokenScope": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "returnToken": {
+            "type": "string"
+          },
+          "returnTokenScope": {
+            "type": "object",
+            "properties": {
+              "workOrderId": {
+                "type": "string"
+              },
+              "learnerHash": {
+                "$ref": "#/components/schemas/LearnerHash"
+              },
+              "tenantId": {
+                "$ref": "#/components/schemas/TenantId"
+              },
+              "courseId": {
+                "$ref": "#/components/schemas/CourseId"
+              },
+              "tokenScope": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          },
+          "storageMode": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "AuthSessionResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "tenantId",
+          "courseId",
+          "actor",
+          "capabilities",
+          "boundaries",
+          "storageMode"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "actor": {
+            "type": "object",
+            "required": [
+              "role",
+              "authMode"
+            ],
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "system",
+                  "course_admin",
+                  "teacher",
+                  "student",
+                  "reviewer"
+                ]
+              },
+              "authMode": {
+                "type": "string"
+              },
+              "reviewMode": {
+                "type": "string"
+              },
+              "learnerHash": {
+                "$ref": "#/components/schemas/LearnerHash"
+              }
+            },
+            "additionalProperties": true
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "boundaries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "storageMode": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseSettings": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "courseClass",
+          "courseName",
+          "repository",
+          "ciProvider",
+          "privacyPolicy",
+          "webhookPath",
+          "updatedAt"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "courseClass": {
+            "type": "string"
+          },
+          "courseName": {
+            "type": "string"
+          },
+          "repository": {
+            "type": "string"
+          },
+          "ciProvider": {
+            "type": "string"
+          },
+          "privacyPolicy": {
+            "type": "string"
+          },
+          "webhookPath": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseSettingsSaveRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "courseClass",
+          "courseName",
+          "repository",
+          "privacyPolicy"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "courseClass": {
+            "type": "string"
+          },
+          "courseName": {
+            "type": "string"
+          },
+          "repository": {
+            "type": "string"
+          },
+          "ciProvider": {
+            "type": "string"
+          },
+          "privacyPolicy": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseSettingsResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "tenantId",
+          "courseId",
+          "settings"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/CourseSettings"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseRosterLearner": {
+        "type": "object",
+        "required": [
+          "learnerHash",
+          "learnerAlias",
+          "className",
+          "status"
+        ],
+        "properties": {
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "learnerAlias": {
+            "type": "string",
+            "description": "Pseudonymous classroom label such as SE-0321; not a real student name."
+          },
+          "className": {
+            "type": "string"
+          },
+          "groupName": {
+            "type": "string"
+          },
+          "repositoryUser": {
+            "type": "string",
+            "description": "Optional Git platform username after classroom privacy review."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "watch",
+              "paused"
+            ]
+          },
+          "lastActivity": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseRoster": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "courseClass",
+          "courseName",
+          "learners",
+          "updatedAt"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "courseClass": {
+            "type": "string"
+          },
+          "courseName": {
+            "type": "string"
+          },
+          "learners": {
+            "type": "array",
+            "maxItems": 120,
+            "items": {
+              "$ref": "#/components/schemas/CourseRosterLearner"
+            }
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseRosterWriteRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "learners"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learners": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 120,
+            "items": {
+              "$ref": "#/components/schemas/CourseRosterLearner"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseRosterResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "tenantId",
+          "courseId",
+          "roster"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "roster": {
+            "$ref": "#/components/schemas/CourseRoster"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseLaunchChecklistItem": {
+        "type": "object",
+        "required": [
+          "key",
+          "label",
+          "status",
+          "detail"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "enum": [
+              "settings",
+              "roster",
+              "diagnosis",
+              "boundary"
+            ]
+          },
+          "label": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "done",
+              "watch",
+              "blocked"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseLaunchSettings": {
+        "type": "object",
+        "required": [
+          "courseClass",
+          "courseName",
+          "repository",
+          "privacyPolicy"
+        ],
+        "properties": {
+          "courseClass": {
+            "type": "string"
+          },
+          "courseName": {
+            "type": "string"
+          },
+          "repository": {
+            "type": "string"
+          },
+          "ciProvider": {
+            "type": "string"
+          },
+          "privacyPolicy": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseLaunchRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "settings",
+          "learners",
+          "task"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/CourseLaunchSettings"
+          },
+          "learners": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 120,
+            "items": {
+              "$ref": "#/components/schemas/CourseRosterLearner"
+            }
+          },
+          "selectedLearnerHashes": {
+            "type": "array",
+            "maxItems": 40,
+            "items": {
+              "$ref": "#/components/schemas/LearnerHash"
+            }
+          },
+          "task": {
+            "$ref": "#/components/schemas/CourseBatchTask"
+          },
+          "idempotencyKey": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseLaunchResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "launchId",
+          "tenantId",
+          "courseId",
+          "settings",
+          "roster",
+          "task",
+          "createdCount",
+          "skippedCount",
+          "workOrders",
+          "skipped",
+          "checklist",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "launchId": {
+            "type": "string"
+          },
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/CourseSettings"
+          },
+          "roster": {
+            "$ref": "#/components/schemas/CourseRoster"
+          },
+          "task": {
+            "$ref": "#/components/schemas/CourseBatchTask"
+          },
+          "createdCount": {
+            "type": "integer"
+          },
+          "skippedCount": {
+            "type": "integer"
+          },
+          "workOrders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningWorkOrder"
+            }
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "checklist": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CourseLaunchChecklistItem"
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          },
+          "warning": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "CourseBatchTask": {
+        "type": "object",
+        "required": [
+          "courseClass",
+          "courseName",
+          "trigger",
+          "focus",
+          "risk",
+          "taskSummary"
+        ],
+        "properties": {
+          "courseClass": {
+            "type": "string"
+          },
+          "courseName": {
+            "type": "string"
+          },
+          "trigger": {
+            "type": "string"
+          },
+          "eventDate": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "focus": {
+            "type": "string",
+            "enum": [
+              "boundary",
+              "transaction",
+              "contract",
+              "review"
+            ]
+          },
+          "risk": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "taskSummary": {
+            "type": "string",
+            "maxLength": 1200
+          },
+          "learnerHashes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearnerHash"
+            }
+          },
+          "currentLevel": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "expectedLevel": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "evidenceCoverage": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkOrderBatchCreateRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "task"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learnerHashes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearnerHash"
+            }
+          },
+          "task": {
+            "$ref": "#/components/schemas/CourseBatchTask"
+          },
+          "idempotencyKey": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkOrderBatchCreateResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "batchId",
+          "createdCount",
+          "skippedCount",
+          "workOrders",
+          "snapshot"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-edge-api.v1"
+          },
+          "batchId": {
+            "type": "string"
+          },
+          "createdCount": {
+            "type": "integer"
+          },
+          "skippedCount": {
+            "type": "integer"
+          },
+          "workOrders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningWorkOrder"
+            }
+          },
+          "skipped": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/TeacherWorkbenchSnapshot"
+          },
+          "storageMode": {
+            "type": "string"
+          },
+          "stored": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "GithubWebhookRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "repository",
+          "prUrl",
+          "ciRunUrl"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "learnerAlias": {
+            "type": "string",
+            "description": "Optional pseudonymous display label, not a real student identifier."
+          },
+          "repository": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "prUrl": {
+            "type": "string"
+          },
+          "ciRunUrl": {
+            "type": "string"
+          },
+          "ciProvider": {
+            "type": "string"
+          },
+          "ciLogSummary": {
+            "type": "string",
+            "description": "Redacted summary only; raw logs are forbidden by x-sepath-boundaries."
+          },
+          "courseClass": {
+            "type": "string"
+          },
+          "courseName": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "idempotencyKey": {
+            "type": "string"
+          },
+          "deliveryId": {
+            "type": "string",
+            "description": "Webhook delivery id used as the idempotency key when provided."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgentEvidence": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "source",
+          "status",
+          "detail"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "source": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 24
+          },
+          "detail": {
+            "type": "string",
+            "maxLength": 650
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgentValueAddedContext": {
+        "type": "object",
+        "required": [
+          "label",
+          "current",
+          "expected",
+          "delta",
+          "uncertainty"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "current": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 100
+          },
+          "expected": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 100
+          },
+          "delta": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": -100,
+            "maximum": 100
+          },
+          "uncertainty": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "interpretation": {
+            "type": "string",
+            "description": "Formative interpretation only; it is not a causal uplift claim or ranking signal."
+          }
+        },
+        "additionalProperties": true
+      },
+      "AgentContext": {
+        "type": "object",
+        "required": [
+          "kind",
+          "courseName",
+          "evidence",
+          "missingEvidence",
+          "boundary"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "course",
+              "work_order"
+            ]
+          },
+          "courseName": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "workOrderId": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "trigger": {
+            "type": "string",
+            "maxLength": 180
+          },
+          "diagnosis": {
+            "type": "string",
+            "maxLength": 600
+          },
+          "evidenceCoverage": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 100
+          },
+          "valueAdded": {
+            "$ref": "#/components/schemas/AgentValueAddedContext"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AgentEvidence"
+            }
+          },
+          "missingEvidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AgentEvidence"
+            }
+          },
+          "sampledOrders": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "pendingOrders": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "queueTruncated": {
+            "type": "boolean"
+          },
+          "nextAction": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "actionReason": {
+            "type": "string",
+            "maxLength": 420
+          },
+          "teacherDecision": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "taskPublished": {
+            "type": "boolean"
+          },
+          "boundary": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "AgentOutcome": {
+        "type": "object",
+        "required": [
+          "mode",
+          "fallback",
+          "teacherReviewRequired",
+          "answer",
+          "questions",
+          "checklist",
+          "evidenceToSubmit",
+          "citations"
+        ],
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "model",
+              "rules",
+              "guarded"
+            ]
+          },
+          "fallback": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "teacherReviewRequired": {
+            "type": "boolean",
+            "const": true
+          },
+          "answer": {
+            "type": "string",
+            "maxLength": 1500
+          },
+          "questions": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "string",
+              "maxLength": 360
+            }
+          },
+          "checklist": {
+            "type": "array",
+            "maxItems": 5,
+            "items": {
+              "type": "string",
+              "maxLength": 360
+            }
+          },
+          "evidenceToSubmit": {
+            "type": "array",
+            "maxItems": 4,
+            "items": {
+              "type": "string",
+              "maxLength": 360
+            }
+          },
+          "citations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Only collected evidence ids from AgentContext.evidence may be cited."
+          },
+          "guardrailHits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "AgentTurn": {
+        "type": "object",
+        "required": [
+          "id",
+          "message",
+          "contextVersion",
+          "evidence",
+          "missingEvidence",
+          "outcome",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "workOrderId": {
+            "type": "string"
+          },
+          "learnerHash": {
+            "$ref": "#/components/schemas/LearnerHash"
+          },
+          "actorRole": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "messageHash": {
+            "type": "string"
+          },
+          "idempotencyKey": {
+            "type": "string"
+          },
+          "contextVersion": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AgentEvidence"
+            }
+          },
+          "missingEvidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AgentEvidence"
+            }
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/AgentOutcome"
+          },
+          "draftPreparedAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "AgentConversationResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "context",
+          "contextVersion",
+          "turns",
+          "historyWindow"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-teaching-agent.v1"
+          },
+          "context": {
+            "$ref": "#/components/schemas/AgentContext"
+          },
+          "contextVersion": {
+            "type": "string"
+          },
+          "turns": {
+            "type": "array",
+            "maxItems": 40,
+            "items": {
+              "$ref": "#/components/schemas/AgentTurn"
+            }
+          },
+          "historyWindow": {
+            "type": "integer",
+            "const": 40
+          }
+        },
+        "additionalProperties": true
+      },
+      "AgentMessageRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "message",
+          "idempotencyKey"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "workOrderId": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "idempotencyKey": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9_-]{12,100}$"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgentMessageResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "turn",
+          "context"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-teaching-agent.v1"
+          },
+          "turn": {
+            "$ref": "#/components/schemas/AgentTurn"
+          },
+          "context": {
+            "$ref": "#/components/schemas/AgentContext"
+          },
+          "deduped": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "AgentDraftPrepareRequest": {
+        "type": "object",
+        "required": [
+          "tenantId",
+          "courseId",
+          "workOrderId",
+          "turnId"
+        ],
+        "properties": {
+          "tenantId": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "courseId": {
+            "$ref": "#/components/schemas/CourseId"
+          },
+          "workOrderId": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "turnId": {
+            "type": "string",
+            "maxLength": 100
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgentDraftPrepareResponse": {
+        "type": "object",
+        "required": [
+          "runtime",
+          "draft",
+          "turnId",
+          "draftPreparedAt",
+          "published"
+        ],
+        "properties": {
+          "runtime": {
+            "const": "sepath-teaching-agent.v1"
+          },
+          "draft": {
+            "$ref": "#/components/schemas/InterventionPackageDraft"
+          },
+          "turnId": {
+            "type": "string"
+          },
+          "draftPreparedAt": {
+            "type": "string"
+          },
+          "published": {
+            "type": "boolean",
+            "const": false
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "x-sepath-boundaries": {
+    "forbiddenRequestFields": [
+      "accessToken",
+      "apiKey",
+      "artifactUrl",
+      "email",
+      "mobile",
+      "password",
+      "phone",
+      "privateEmail",
+      "rawDiff",
+      "rawLog",
+      "runnerSecret",
+      "secret",
+      "studentName",
+      "studentRealName"
+    ],
+    "claimBoundary": "This contract proves runnable API shape and privacy gates for pseudonymous learning records. Real course learning uplift still requires teacher-confirmed pilot telemetry and authorized data collection."
+  }
+}
