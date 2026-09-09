@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-09T13:47:11.307Z",
+  "generatedAt": "2026-09-09T13:53:13.877Z",
   "projectName": "PathWise Mentor",
   "repository": "https://github.com/Ring0321/pathwise-mentor",
-  "cloudUrl": "https://sepath-xueban.ring0321.chatgpt.site",
-  "cloudAccess": "owner-only private access",
+  "publicUrl": "http://212.129.243.63/",
+  "publicAccess": "public HTTP endpoint",
   "sourceWorkspace": "D:/相关比赛、论文/2026.8-自适应习路径决策与伴学",
   "fileCount": 294,
   "files": [
@@ -1474,8 +1474,8 @@
     },
     {
       "path": "开发项目名称.txt",
-      "bytes": 339,
-      "sha256": "fa9d0664610d310aa5b50e55d6c9d8ebe51f7ddb6df669bc6ae8aa4220176044"
+      "bytes": 250,
+      "sha256": "f185742700af95a6230f018256f8b7089d6ee71e6be04f81da4a5c3270213743"
     }
   ]
 }
